@@ -1,0 +1,10 @@
+{
+  "purpose": "Interface and exact-shape compatibility check; TextureSAM masks are not ground truth.",
+  "images": 4,
+  "compatible_masks": 11,
+  "shape_errors": 0,
+  "all_shapes_compatible": true,
+  "inference_resized": false,
+  "tile_size": 128,
+  "tile_overlap": 64
+}

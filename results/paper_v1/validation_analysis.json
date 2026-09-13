@@ -1,0 +1,10 @@
+{
+  "samples": 2000,
+  "pearson_cnn_probability_vs_sobel_score": 0.8363778968738579,
+  "pearson_cnn_probability_vs_dct_hf_ratio": 0.2872264386419042,
+  "cnn_sobel_binary_agreement": 0.985,
+  "cnn_dct_hf_binary_agreement": 0.8735,
+  "cnn_correct_sobel_wrong": 17,
+  "sobel_correct_cnn_wrong": 13,
+  "both_wrong": 63
+}
