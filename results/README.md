@@ -30,3 +30,15 @@ This directory contains compact, reviewable copies of the completed experiment o
 - `texturesam_compatibility_summary.json`: exact-size integration check only.
 
 Model binaries are stored separately under `checkpoints/`.
+
+## `stcnn_limit`
+
+- `summary.json`, `key_metrics.csv`: compact results from the STCNN ablations.
+- `stcnn_limit_summary.png`: AWGN limit curve and noise-family comparison.
+- `diverse_distilled_demo_awgn.jpg/.json`: native-resolution full-image
+  diagnostic at sigma 0/15/50/100.
+- `sigma_robust_demo_awgn.jpg/.json`: matching diagnostic for the
+  sigma-jitter conditional STCNN.
+
+The complete interpretation and limitations are documented in
+`STCNN_LIMIT_REPORT.md`.

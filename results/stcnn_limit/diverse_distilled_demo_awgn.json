@@ -1,0 +1,361 @@
+{
+  "checkpoint": "outputs\\stcnn_limit\\diverse_distilled\\best.pt",
+  "input_dir": "..\\Freq-Aware-Seg\\docs\\demo_results\\originals",
+  "device": "cuda",
+  "method": "non-overlapping 8x8 targets from 32x32 reflected contexts",
+  "input_normalization": "(luminance_[0,1] - 0.5) / 0.25",
+  "resize": false,
+  "sigmas": [
+    0.0,
+    15.0,
+    50.0,
+    100.0
+  ],
+  "seed": 20260913,
+  "total_seconds": 8.477999200011254,
+  "predictions": [
+    {
+      "image": "div2k_0524.png",
+      "sigma": 0.0,
+      "height": 1356,
+      "width": 2040,
+      "probability_mean": 0.2847799062728882,
+      "probability_std": 0.37848609685897827,
+      "fraction_ge_050": 0.27098154896176757,
+      "elapsed_seconds": 0.35897380000096746
+    },
+    {
+      "image": "div2k_0524.png",
+      "sigma": 15.0,
+      "height": 1356,
+      "width": 2040,
+      "probability_mean": 0.2811914086341858,
+      "probability_std": 0.3823796510696411,
+      "fraction_ge_050": 0.2676615188848401,
+      "elapsed_seconds": 0.2098318000062136
+    },
+    {
+      "image": "div2k_0524.png",
+      "sigma": 50.0,
+      "height": 1356,
+      "width": 2040,
+      "probability_mean": 0.30190038681030273,
+      "probability_std": 0.3904036283493042,
+      "fraction_ge_050": 0.2836369946208572,
+      "elapsed_seconds": 0.2077032999950461
+    },
+    {
+      "image": "div2k_0524.png",
+      "sigma": 100.0,
+      "height": 1356,
+      "width": 2040,
+      "probability_mean": 0.37959372997283936,
+      "probability_std": 0.37026098370552063,
+      "fraction_ge_050": 0.34041297935103243,
+      "elapsed_seconds": 0.20892889999959152
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 0.0,
+      "height": 1688,
+      "width": 3000,
+      "probability_mean": 0.3411947786808014,
+      "probability_std": 0.39813703298568726,
+      "fraction_ge_050": 0.34600947867298576,
+      "elapsed_seconds": 0.37235449999570847
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 15.0,
+      "height": 1688,
+      "width": 3000,
+      "probability_mean": 0.3360883891582489,
+      "probability_std": 0.3986726701259613,
+      "fraction_ge_050": 0.33455924170616114,
+      "elapsed_seconds": 0.3907675999944331
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 50.0,
+      "height": 1688,
+      "width": 3000,
+      "probability_mean": 0.3655562698841095,
+      "probability_std": 0.3977079689502716,
+      "fraction_ge_050": 0.3520126382306477,
+      "elapsed_seconds": 0.38597120001213625
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 100.0,
+      "height": 1688,
+      "width": 3000,
+      "probability_mean": 0.41167476773262024,
+      "probability_std": 0.3693346381187439,
+      "fraction_ge_050": 0.3935039494470774,
+      "elapsed_seconds": 0.3843193000066094
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 0.0,
+      "height": 607,
+      "width": 910,
+      "probability_mean": 0.14475160837173462,
+      "probability_std": 0.11749381572008133,
+      "fraction_ge_050": 0.017365171895649654,
+      "elapsed_seconds": 0.04666890000225976
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 15.0,
+      "height": 607,
+      "width": 910,
+      "probability_mean": 0.12391917407512665,
+      "probability_std": 0.10440166294574738,
+      "fraction_ge_050": 0.0096601915382805,
+      "elapsed_seconds": 0.04314619999786373
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 50.0,
+      "height": 607,
+      "width": 910,
+      "probability_mean": 0.20438723266124725,
+      "probability_std": 0.17482367157936096,
+      "fraction_ge_050": 0.07894708257146478,
+      "elapsed_seconds": 0.04460010000912007
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 100.0,
+      "height": 607,
+      "width": 910,
+      "probability_mean": 0.4156889021396637,
+      "probability_std": 0.28272929787635803,
+      "fraction_ge_050": 0.3709289063490052,
+      "elapsed_seconds": 0.04418539999460336
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 0.0,
+      "height": 2000,
+      "width": 3000,
+      "probability_mean": 0.453897625207901,
+      "probability_std": 0.3841012418270111,
+      "fraction_ge_050": 0.43899733333333335,
+      "elapsed_seconds": 0.45221220000530593
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 15.0,
+      "height": 2000,
+      "width": 3000,
+      "probability_mean": 0.4347129464149475,
+      "probability_std": 0.39521726965904236,
+      "fraction_ge_050": 0.42020266666666667,
+      "elapsed_seconds": 0.4626616000023205
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 50.0,
+      "height": 2000,
+      "width": 3000,
+      "probability_mean": 0.45160412788391113,
+      "probability_std": 0.3978523910045624,
+      "fraction_ge_050": 0.42855466666666664,
+      "elapsed_seconds": 0.463990800009924
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 100.0,
+      "height": 2000,
+      "width": 3000,
+      "probability_mean": 0.585395336151123,
+      "probability_std": 0.3426564335823059,
+      "fraction_ge_050": 0.583712,
+      "elapsed_seconds": 0.4667031999997562
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 0.0,
+      "height": 2214,
+      "width": 3269,
+      "probability_mean": 0.2819563150405884,
+      "probability_std": 0.37087225914001465,
+      "fraction_ge_050": 0.27662448950379176,
+      "elapsed_seconds": 0.5468950000067707
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 15.0,
+      "height": 2214,
+      "width": 3269,
+      "probability_mean": 0.265434205532074,
+      "probability_std": 0.36714980006217957,
+      "fraction_ge_050": 0.25441370759175114,
+      "elapsed_seconds": 0.5820390999870142
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 50.0,
+      "height": 2214,
+      "width": 3269,
+      "probability_mean": 0.2828979194164276,
+      "probability_std": 0.3709052503108978,
+      "fraction_ge_050": 0.2627988470156956,
+      "elapsed_seconds": 0.5880378000001656
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 100.0,
+      "height": 2214,
+      "width": 3269,
+      "probability_mean": 0.3392978012561798,
+      "probability_std": 0.37060490250587463,
+      "fraction_ge_050": 0.3167913080170875,
+      "elapsed_seconds": 0.5994589000038104
+    }
+  ],
+  "noise_stability": [
+    {
+      "image": "div2k_0524.png",
+      "sigma": 0.0,
+      "binary_agreement_with_sigma0": 1.0,
+      "probability_correlation_with_sigma0": 0.9999999999999999,
+      "mean_absolute_difference_from_sigma0": 0.0
+    },
+    {
+      "image": "div2k_0524.png",
+      "sigma": 15.0,
+      "binary_agreement_with_sigma0": 0.9830759442420036,
+      "probability_correlation_with_sigma0": 0.993788101795598,
+      "mean_absolute_difference_from_sigma0": 0.01968276873230934
+    },
+    {
+      "image": "div2k_0524.png",
+      "sigma": 50.0,
+      "binary_agreement_with_sigma0": 0.9539591647868587,
+      "probability_correlation_with_sigma0": 0.9611677684036478,
+      "mean_absolute_difference_from_sigma0": 0.05366833135485649
+    },
+    {
+      "image": "div2k_0524.png",
+      "sigma": 100.0,
+      "binary_agreement_with_sigma0": 0.8710162531089132,
+      "probability_correlation_with_sigma0": 0.8358782371965235,
+      "mean_absolute_difference_from_sigma0": 0.14638569951057434
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 0.0,
+      "binary_agreement_with_sigma0": 1.0,
+      "probability_correlation_with_sigma0": 0.9999999999999999,
+      "mean_absolute_difference_from_sigma0": 0.0
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 15.0,
+      "binary_agreement_with_sigma0": 0.9713617693522907,
+      "probability_correlation_with_sigma0": 0.9898123764501983,
+      "mean_absolute_difference_from_sigma0": 0.02769344486296177
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 50.0,
+      "binary_agreement_with_sigma0": 0.9301990521327014,
+      "probability_correlation_with_sigma0": 0.9420818524282434,
+      "mean_absolute_difference_from_sigma0": 0.07549165934324265
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 100.0,
+      "binary_agreement_with_sigma0": 0.8298641390205371,
+      "probability_correlation_with_sigma0": 0.7691131080236245,
+      "mean_absolute_difference_from_sigma0": 0.17360471189022064
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 0.0,
+      "binary_agreement_with_sigma0": 1.0,
+      "probability_correlation_with_sigma0": 1.0,
+      "mean_absolute_difference_from_sigma0": 0.0
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 15.0,
+      "binary_agreement_with_sigma0": 0.987254919709615,
+      "probability_correlation_with_sigma0": 0.8793544018970167,
+      "mean_absolute_difference_from_sigma0": 0.041191644966602325
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 50.0,
+      "binary_agreement_with_sigma0": 0.9138258775820555,
+      "probability_correlation_with_sigma0": 0.29031604708193853,
+      "mean_absolute_difference_from_sigma0": 0.13358773291110992
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 100.0,
+      "binary_agreement_with_sigma0": 0.6266524250049785,
+      "probability_correlation_with_sigma0": 0.10441114760975329,
+      "mean_absolute_difference_from_sigma0": 0.3110654652118683
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 0.0,
+      "binary_agreement_with_sigma0": 1.0,
+      "probability_correlation_with_sigma0": 1.0,
+      "mean_absolute_difference_from_sigma0": 0.0
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 15.0,
+      "binary_agreement_with_sigma0": 0.971968,
+      "probability_correlation_with_sigma0": 0.9927489936555958,
+      "mean_absolute_difference_from_sigma0": 0.03117210976779461
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 50.0,
+      "binary_agreement_with_sigma0": 0.9279253333333334,
+      "probability_correlation_with_sigma0": 0.9481842707194449,
+      "mean_absolute_difference_from_sigma0": 0.07842367887496948
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 100.0,
+      "binary_agreement_with_sigma0": 0.7662186666666667,
+      "probability_correlation_with_sigma0": 0.732681920814013,
+      "mean_absolute_difference_from_sigma0": 0.2069835215806961
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 0.0,
+      "binary_agreement_with_sigma0": 1.0,
+      "probability_correlation_with_sigma0": 1.0,
+      "mean_absolute_difference_from_sigma0": 0.0
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 15.0,
+      "binary_agreement_with_sigma0": 0.9677305878799586,
+      "probability_correlation_with_sigma0": 0.9871098869915563,
+      "mean_absolute_difference_from_sigma0": 0.02788427285850048
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 50.0,
+      "binary_agreement_with_sigma0": 0.9316742672882016,
+      "probability_correlation_with_sigma0": 0.9411193633784042,
+      "mean_absolute_difference_from_sigma0": 0.06372667849063873
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 100.0,
+      "binary_agreement_with_sigma0": 0.8665775206747682,
+      "probability_correlation_with_sigma0": 0.834235609211734,
+      "mean_absolute_difference_from_sigma0": 0.12978041172027588
+    }
+  ],
+  "gallery": "results\\stcnn_limit\\diverse_distilled_demo_awgn.jpg"
+}

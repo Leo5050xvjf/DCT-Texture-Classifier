@@ -1,0 +1,76 @@
+section,model,condition,accuracy
+awgn_curve,"small, train <=50",sigma_0,0.985
+awgn_curve,"small, train <=50",sigma_5,0.9857
+awgn_curve,"small, train <=50",sigma_15,0.9854
+awgn_curve,"small, train <=50",sigma_25,0.9859
+awgn_curve,"small, train <=50",sigma_35,0.9846
+awgn_curve,"small, train <=50",sigma_50,0.9713
+awgn_curve,"small, train <=50",sigma_60,0.9487
+awgn_curve,"small, train <=50",sigma_75,0.9023
+awgn_curve,"small, train <=50",sigma_100,0.7986
+awgn_curve,"small + sigma, train <=50",sigma_0,0.9875
+awgn_curve,"small + sigma, train <=50",sigma_5,0.9867
+awgn_curve,"small + sigma, train <=50",sigma_15,0.9854
+awgn_curve,"small + sigma, train <=50",sigma_25,0.9845
+awgn_curve,"small + sigma, train <=50",sigma_35,0.9808
+awgn_curve,"small + sigma, train <=50",sigma_50,0.9694
+awgn_curve,"small + sigma, train <=50",sigma_60,0.9585
+awgn_curve,"small + sigma, train <=50",sigma_75,0.9345
+awgn_curve,"small + sigma, train <=50",sigma_100,0.8979
+awgn_curve,"small, train <=100",sigma_0,0.982
+awgn_curve,"small, train <=100",sigma_5,0.9818
+awgn_curve,"small, train <=100",sigma_15,0.9811
+awgn_curve,"small, train <=100",sigma_25,0.9806
+awgn_curve,"small, train <=100",sigma_35,0.9768
+awgn_curve,"small, train <=100",sigma_50,0.9725
+awgn_curve,"small, train <=100",sigma_60,0.9674
+awgn_curve,"small, train <=100",sigma_75,0.9555
+awgn_curve,"small, train <=100",sigma_100,0.9323
+awgn_curve,"large teacher, train <=100",sigma_0,0.9785
+awgn_curve,"large teacher, train <=100",sigma_5,0.9799
+awgn_curve,"large teacher, train <=100",sigma_15,0.9808
+awgn_curve,"large teacher, train <=100",sigma_25,0.9795
+awgn_curve,"large teacher, train <=100",sigma_35,0.9779
+awgn_curve,"large teacher, train <=100",sigma_50,0.974
+awgn_curve,"large teacher, train <=100",sigma_60,0.97
+awgn_curve,"large teacher, train <=100",sigma_75,0.9643
+awgn_curve,"large teacher, train <=100",sigma_100,0.9433
+awgn_curve,"small distilled, train <=100",sigma_0,0.98
+awgn_curve,"small distilled, train <=100",sigma_5,0.9793
+awgn_curve,"small distilled, train <=100",sigma_15,0.9788
+awgn_curve,"small distilled, train <=100",sigma_25,0.9792
+awgn_curve,"small distilled, train <=100",sigma_35,0.978
+awgn_curve,"small distilled, train <=100",sigma_50,0.9735
+awgn_curve,"small distilled, train <=100",sigma_60,0.9691
+awgn_curve,"small distilled, train <=100",sigma_75,0.9607
+awgn_curve,"small distilled, train <=100",sigma_100,0.9335
+corruption,AWGN100 small,clean,0.982
+corruption,AWGN100 small,awgn_100,0.9336
+corruption,AWGN100 small,corr_awgn_50,0.5497
+corruption,AWGN100 small,poisson_peak_10,0.9714
+corruption,AWGN100 small,saltpepper_prob_0.05,0.9594
+corruption,AWGN100 small,sinusoid_amp_30,0.8532
+corruption,diverse distilled,clean,0.963
+corruption,diverse distilled,awgn_100,0.9395
+corruption,diverse distilled,corr_awgn_50,0.8211
+corruption,diverse distilled,poisson_peak_10,0.9621
+corruption,diverse distilled,saltpepper_prob_0.05,0.9641
+corruption,diverse distilled,sinusoid_amp_30,0.9607
+corruption,diverse + exact sigma,clean,0.985
+corruption,diverse + exact sigma,awgn_100,0.9166
+corruption,diverse + exact sigma,corr_awgn_50,0.9406
+corruption,diverse + exact sigma,poisson_peak_10,0.975
+corruption,diverse + exact sigma,saltpepper_prob_0.05,0.9725
+corruption,diverse + exact sigma,sinusoid_amp_30,0.9766
+corruption,diverse large teacher,clean,0.9715
+corruption,diverse large teacher,awgn_100,0.928
+corruption,diverse large teacher,corr_awgn_50,0.8865
+corruption,diverse large teacher,poisson_peak_10,0.9639
+corruption,diverse large teacher,saltpepper_prob_0.05,0.9713
+corruption,diverse large teacher,sinusoid_amp_30,0.9405
+corruption,diverse + sigma jitter,clean,0.9735
+corruption,diverse + sigma jitter,awgn_100,0.9285
+corruption,diverse + sigma jitter,corr_awgn_50,0.8291
+corruption,diverse + sigma jitter,poisson_peak_10,0.9588
+corruption,diverse + sigma jitter,saltpepper_prob_0.05,0.956
+corruption,diverse + sigma jitter,sinusoid_amp_30,0.9694

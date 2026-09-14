@@ -35,6 +35,7 @@ def infer_blockwise(
     seed: int,
     context_size: int = 32,
     target_size: int = 8,
+    kind: str = "spatial32",
 ) -> tuple[np.ndarray, np.ndarray]:
     """Tile central-target predictions back into a full-resolution map.
 
@@ -89,7 +90,14 @@ def infer_blockwise(
         # Match train_robust_patch.prepare_inputs exactly. The classifier was
         # never trained on raw [0, 1] tensors.
         tensor = (tensor - 0.5) / 0.25
-        probabilities = torch.sigmoid(model(tensor)).cpu().numpy()
+        if kind == "spatial32_conditional":
+            supplied_sigma = torch.full(
+                (len(tensor),), sigma / 50.0, device=device, dtype=tensor.dtype
+            )
+            logits = model(tensor, supplied_sigma)
+        else:
+            logits = model(tensor)
+        probabilities = torch.sigmoid(logits).cpu().numpy()
         for probability, (y, x) in zip(probabilities, batch_coordinates):
             block_probabilities[y // target_size, x // target_size] = probability
 
@@ -148,9 +156,11 @@ def main() -> None:
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     checkpoint = torch.load(args.checkpoint, map_location=device, weights_only=False)
-    if checkpoint.get("kind") != "spatial32":
-        raise ValueError(f"Expected a spatial32 checkpoint, got {checkpoint.get('kind')!r}")
-    model = make_robust_model("spatial32").to(device)
+    kind = checkpoint.get("kind")
+    supported_kinds = {"spatial32", "spatial32_conditional", "spatial32_large"}
+    if kind not in supported_kinds:
+        raise ValueError(f"Expected an STCNN checkpoint, got {kind!r}")
+    model = make_robust_model(kind).to(device)
     model.load_state_dict(checkpoint["model"])
 
     args.output_root.mkdir(parents=True, exist_ok=True)
@@ -171,6 +181,7 @@ def main() -> None:
                 args.batch_size,
                 sigma,
                 args.seed + image_index,
+                kind=kind,
             )
             predictions[path.stem][sigma] = probability
             case_dir = args.output_root / f"sigma_{sigma:g}" / path.stem
@@ -268,6 +279,8 @@ def main() -> None:
         "input_dir": str(args.input_dir),
         "device": str(device),
         "method": "non-overlapping 8x8 targets from 32x32 reflected contexts",
+        "model_kind": kind,
+        "conditional_sigma": "nominal synthetic AWGN sigma" if kind == "spatial32_conditional" else None,
         "input_normalization": "(luminance_[0,1] - 0.5) / 0.25",
         "resize": False,
         "sigmas": args.sigmas,

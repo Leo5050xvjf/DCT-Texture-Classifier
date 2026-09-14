@@ -67,8 +67,18 @@ See:
 
 - [Paper-style v1 report](EXPERIMENT_REPORT.md)
 - [Robust v2 report](EXPERIMENT_V2_REPORT.md)
+- [STCNN noise-limit study](STCNN_LIMIT_REPORT.md)
 - [Machine-readable v2 summary](results/robust_v2/summary.json)
 - [Controlled diagnostic results](results/robust_v2/controlled_diagnostics.csv)
+
+The follow-up STCNN limit study evaluates paired consistency, explicit noise
+conditioning, a 0.63M-parameter teacher, distillation, training through AWGN
+sigma 100, and six noise families. The compact diverse distilled STCNN improves
+five-image full-map agreement at sigma 50 from 83.55% to 93.15%, while the
+study also identifies correlated noise versus stochastic clean texture as an
+unresolved single-patch ambiguity.
+
+![STCNN limit-study summary](results/stcnn_limit/stcnn_limit_summary.png)
 
 ## Method overview
 

@@ -1,0 +1,267 @@
+{
+  "protocol": {
+    "natural_train_patches": 6000,
+    "natural_validation_patches": 2000,
+    "validation_noise_repeats": 5,
+    "labels": "clean-image Sobel-extreme hard pseudo-labels",
+    "important_scope_warning": "Patch accuracy is not human texture GT or dense full-image accuracy."
+  },
+  "awgn_key_accuracy": {
+    "small, train <=50": {
+      "0.0": 0.985,
+      "50.0": 0.9713,
+      "75.0": 0.9023,
+      "100.0": 0.7986
+    },
+    "small + sigma, train <=50": {
+      "0.0": 0.9875,
+      "50.0": 0.9694,
+      "75.0": 0.9345,
+      "100.0": 0.8979
+    },
+    "small, train <=100": {
+      "0.0": 0.982,
+      "50.0": 0.9725,
+      "75.0": 0.9555,
+      "100.0": 0.9323
+    },
+    "large teacher, train <=100": {
+      "0.0": 0.9785,
+      "50.0": 0.974,
+      "75.0": 0.9643,
+      "100.0": 0.9433
+    },
+    "small distilled, train <=100": {
+      "0.0": 0.98,
+      "50.0": 0.9735,
+      "75.0": 0.9607,
+      "100.0": 0.9335
+    }
+  },
+  "diverse_corruption_key_accuracy": {
+    "AWGN100 small": {
+      "clean": 0.982,
+      "awgn_100": 0.9336,
+      "corr_awgn_50": 0.5497,
+      "poisson_peak_10": 0.9714,
+      "saltpepper_prob_0.05": 0.9594,
+      "sinusoid_amp_30": 0.8532
+    },
+    "diverse distilled": {
+      "clean": 0.963,
+      "awgn_100": 0.9395,
+      "corr_awgn_50": 0.8211,
+      "poisson_peak_10": 0.9621,
+      "saltpepper_prob_0.05": 0.9641,
+      "sinusoid_amp_30": 0.9607
+    },
+    "diverse + exact sigma": {
+      "clean": 0.985,
+      "awgn_100": 0.9166,
+      "corr_awgn_50": 0.9406,
+      "poisson_peak_10": 0.975,
+      "saltpepper_prob_0.05": 0.9725,
+      "sinusoid_amp_30": 0.9766
+    },
+    "diverse large teacher": {
+      "clean": 0.9715,
+      "awgn_100": 0.928,
+      "corr_awgn_50": 0.8865,
+      "poisson_peak_10": 0.9639,
+      "saltpepper_prob_0.05": 0.9713,
+      "sinusoid_amp_30": 0.9405
+    },
+    "diverse + sigma jitter": {
+      "clean": 0.9735,
+      "awgn_100": 0.9285,
+      "corr_awgn_50": 0.8291,
+      "poisson_peak_10": 0.9588,
+      "saltpepper_prob_0.05": 0.956,
+      "sinusoid_amp_30": 0.9694
+    }
+  },
+  "diverse_training_three_seed_reproduction": {
+    "cond": {
+      "clean": {
+        "mean": 0.984,
+        "std": 0.0010000000000000009,
+        "values": [
+          0.985,
+          0.983,
+          0.984
+        ]
+      },
+      "awgn_50": {
+        "mean": 0.9723999999999999,
+        "std": 0.0034871191548325113,
+        "values": [
+          0.974,
+          0.9748,
+          0.9684
+        ]
+      },
+      "awgn_100": {
+        "mean": 0.9168333333333333,
+        "std": 0.010851881557284558,
+        "values": [
+          0.9166,
+          0.9061,
+          0.9278
+        ]
+      },
+      "corr_awgn_50": {
+        "mean": 0.9417666666666666,
+        "std": 0.009802210635021721,
+        "values": [
+          0.9406,
+          0.9326,
+          0.9521
+        ]
+      },
+      "sinusoid_amp_30": {
+        "mean": 0.9769666666666666,
+        "std": 0.0039627431576287385,
+        "values": [
+          0.9766,
+          0.9732,
+          0.9811
+        ]
+      }
+    },
+    "teacher": {
+      "clean": {
+        "mean": 0.9728333333333334,
+        "std": 0.0032145502536643214,
+        "values": [
+          0.9715,
+          0.9705,
+          0.9765
+        ]
+      },
+      "awgn_50": {
+        "mean": 0.9677666666666666,
+        "std": 0.004895235779135978,
+        "values": [
+          0.9664,
+          0.9637,
+          0.9732
+        ]
+      },
+      "awgn_100": {
+        "mean": 0.9328666666666666,
+        "std": 0.006850060826980524,
+        "values": [
+          0.928,
+          0.9299,
+          0.9407
+        ]
+      },
+      "corr_awgn_50": {
+        "mean": 0.8952,
+        "std": 0.010182828683622252,
+        "values": [
+          0.8865,
+          0.9064,
+          0.8927
+        ]
+      },
+      "sinusoid_amp_30": {
+        "mean": 0.9450666666666668,
+        "std": 0.005589573627150242,
+        "values": [
+          0.9405,
+          0.9434,
+          0.9513
+        ]
+      }
+    }
+  },
+  "sigma_input_true_awgn50": {
+    "exact": {
+      "fixed_0": 0.5,
+      "fixed_25": 0.6257,
+      "fixed_50": 0.9396,
+      "fixed_75": 0.558,
+      "fixed_100": 0.5012,
+      "oracle_effective_rms": 0.9741
+    },
+    "robust": {
+      "fixed_0": 0.8244,
+      "fixed_25": 0.9485,
+      "fixed_50": 0.9542,
+      "fixed_75": 0.9436,
+      "fixed_100": 0.935,
+      "oracle_effective_rms": 0.9568
+    }
+  },
+  "synthetic_signal": {
+    "exact": {
+      "clean": {
+        "smooth": 0.0,
+        "periodic": 0.904,
+        "stochastic": 0.958
+      },
+      "awgn_50": {
+        "smooth": 0.0052,
+        "periodic": 0.796,
+        "stochastic": 0.826
+      },
+      "corr_awgn_50": {
+        "smooth": 0.2978,
+        "periodic": 0.8632,
+        "stochastic": 0.8644
+      }
+    },
+    "robust": {
+      "clean": {
+        "smooth": 0.0,
+        "periodic": 0.716,
+        "stochastic": 0.834
+      },
+      "awgn_50": {
+        "smooth": 0.012,
+        "periodic": 0.6504,
+        "stochastic": 0.6988
+      },
+      "corr_awgn_50": {
+        "smooth": 0.955,
+        "periodic": 0.9996,
+        "stochastic": 0.9996
+      }
+    },
+    "nonconditional": {
+      "clean": {
+        "smooth": 0.0,
+        "periodic": 0.478,
+        "stochastic": 0.648
+      },
+      "awgn_50": {
+        "smooth": 0.0048,
+        "periodic": 0.49,
+        "stochastic": 0.5992
+      },
+      "corr_awgn_50": {
+        "smooth": 0.9692,
+        "periodic": 0.9992,
+        "stochastic": 1.0
+      }
+    }
+  },
+  "distilled_full_image_awgn_stability": {
+    "15.0": {
+      "mean_binary_agreement_with_clean": 0.9762782442367737,
+      "mean_probability_correlation_with_clean": 0.9685627521579929,
+      "mean_absolute_difference_from_clean": 0.029524848237633704
+    },
+    "50.0": {
+      "mean_binary_agreement_with_clean": 0.9315167390246302,
+      "mean_probability_correlation_with_clean": 0.8165738604023357,
+      "mean_absolute_difference_from_clean": 0.08097961619496345
+    },
+    "100.0": {
+      "mean_binary_agreement_with_clean": 0.7920658008951728,
+      "mean_probability_correlation_with_clean": 0.6552640045711297,
+      "mean_absolute_difference_from_clean": 0.19356396198272705
+    }
+  }
+}

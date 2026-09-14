@@ -89,6 +89,11 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(make_robust_model("dct8_conditional")(dct, sigma).shape, (batch,))
         self.assertEqual(make_robust_model("spatial8")(patch).shape, (batch,))
         self.assertEqual(make_robust_model("spatial32")(context).shape, (batch,))
+        self.assertEqual(
+            make_robust_model("spatial32_conditional")(context, sigma).shape,
+            (batch,),
+        )
+        self.assertEqual(make_robust_model("spatial32_large")(context).shape, (batch,))
         self.assertEqual(make_robust_model("hybrid32")(context, dct).shape, (batch,))
 
     def test_map_generator_shape(self) -> None:
@@ -141,6 +146,24 @@ class CoreTests(unittest.TestCase):
         expected = torch.sigmoid(torch.tensor(2.0)).item()
         np.testing.assert_allclose(probability, expected)
         np.testing.assert_allclose(noisy, gray.astype(np.float32) / 255.0)
+
+    def test_spatial32_blockwise_map_supports_sigma_conditioning(self) -> None:
+        class ConditionalMeanModel(torch.nn.Module):
+            def forward(self, context: torch.Tensor, sigma: torch.Tensor) -> torch.Tensor:
+                return context.mean(dim=(1, 2, 3)) + sigma
+
+        gray = np.full((17, 23), 255, dtype=np.uint8)
+        probability, _ = infer_blockwise(
+            gray,
+            ConditionalMeanModel(),
+            torch.device("cpu"),
+            batch_size=4,
+            sigma=0.0,
+            seed=7,
+            kind="spatial32_conditional",
+        )
+        expected = torch.sigmoid(torch.tensor(2.0)).item()
+        np.testing.assert_allclose(probability, expected)
 
 
 if __name__ == "__main__":
