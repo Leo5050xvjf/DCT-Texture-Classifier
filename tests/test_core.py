@@ -18,6 +18,7 @@ from dct_texture.map_model import MapGeneratorUNet
 from dct_texture.teacher_map import teacher_maps_for_crops
 from build_context_dataset import extract_context
 from infer_map_generator import infer_tiled, tile_starts
+from infer_spatial32_dense import infer_blockwise
 
 
 class CoreTests(unittest.TestCase):
@@ -112,6 +113,25 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(noisy.shape, gray.shape)
         np.testing.assert_allclose(probability, 0.5, atol=1e-6)
         self.assertEqual(tile_starts(100, 64, 40)[-1], 36)
+
+    def test_spatial32_blockwise_map_preserves_native_shape(self) -> None:
+        class ZeroLogitModel(torch.nn.Module):
+            def forward(self, context: torch.Tensor) -> torch.Tensor:
+                return torch.zeros(context.shape[0], device=context.device)
+
+        gray = np.arange(19 * 25, dtype=np.uint8).reshape(19, 25)
+        probability, noisy = infer_blockwise(
+            gray,
+            ZeroLogitModel(),
+            torch.device("cpu"),
+            batch_size=4,
+            sigma=0.0,
+            seed=1,
+        )
+        self.assertEqual(probability.shape, gray.shape)
+        self.assertEqual(noisy.shape, gray.shape)
+        np.testing.assert_allclose(probability, 0.5)
+        np.testing.assert_allclose(noisy, gray.astype(np.float32) / 255.0)
 
 
 if __name__ == "__main__":

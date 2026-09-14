@@ -163,7 +163,25 @@ G 新增了 full-resolution tiled inference：
 
 sigma 15 的紋理空間結構與 clean input 接近；sigma 50 仍保留主要物體/邊緣結構，但所有影像的高紋理比例均上升，顯示強噪聲殘留被誤認為紋理。`piqsels_grass` 的 clean map 原本幾乎全低，在 sigma 50 增至 17.6%，是最清楚的 false-positive stress case。公開版合併比較圖為 `results/robust_v2/freq_aware_seg_demo_noise_comparison.jpg`。
 
-## 9. 本輪限制
+## 9. Spatial 32×32 full-image diagnostic
+
+為檢查高 patch accuracy 是否能直接轉成 dense map，另將 Spatial 32×32
+classifier 以不重疊 8×8 target blocks 跑過 `Freq-Aware-Seg` 的五張完整
+demo 原圖。每個 block 使用完整 32×32 reflected context，保持原生解析度，
+並比較 sigma 0、15、50。
+
+標準 threshold 0.5 下，各圖被判為 texture 的比例只有 0–1.3%。sigma 15
+相對 sigma 0 的平均 binary agreement 為 99.94%，sigma 50 為 99.76%；但這些
+數字受到大量 negative predictions 膨脹。視覺上高分結構在 sigma 15 大致
+穩定，sigma 50 仍可辨認主要輪廓，然而絕對機率過低。
+
+這項結果顯示：97% patch accuracy 是在每張圖極高／極低 Sobel 區域抽出的
+平衡 validation patches 上成立。任意 full-image 位置包含大量未參與訓練的
+中間難度區域，因此不能把該數字解讀為 dense-map accuracy，也不應直接用
+0.5 threshold 部署。結果位於
+`results/robust_v2/spatial32_demo_noise_comparison.jpg/.json`。
+
+## 10. 本輪限制
 
 1. GT 是 Sobel extreme pseudo-label 與其訓練出的 DCT teacher，不是人類材質標註；所有 accuracy 應解讀為「重現這個操作型定義」。
 2. 只有單一主要 random seed；足以作第一輪 PoC 與大幅差異判斷，不足以對 0.1–1% 的微小差異下定論。
@@ -172,7 +190,7 @@ sigma 15 的紋理空間結構與 clean input 接近；sigma 50 仍保留主要�
 5. G 只看 DIV2K natural images，synthetic OOD failures 已證明資料涵蓋不足。
 6. Texture map 是「細節/高頻是否值得保留」的 denoising 輔助圖，不是相同材質的 instance/semantic clustering。
 
-## 10. 建議下一步
+## 11. 建議下一步
 
 下一輪不應先擴大模型，而應先修正學習目標：
 
@@ -182,7 +200,7 @@ sigma 15 的紋理空間結構與 clean input 接近；sigma 50 仍保留主要�
 4. 以 Spatial 32 或全圖 raw-spatial G 為主幹；DCT 只作 optional auxiliary branch，做 multi-seed ablation 後才決定是否保留。
 5. 把 TextureSAM masks 當區域約束或統計單位，而不是 texture GT；避免模型只學 TextureSAM 的錯誤。
 
-## 11. 產物位置
+## 12. 產物位置
 
 - 綜合機器可讀摘要：`results/robust_v2/summary.json`
 - Accuracy 曲線：`results/robust_v2/accuracy_vs_noise.png`
@@ -196,7 +214,7 @@ sigma 15 的紋理空間結構與 clean input 接近；sigma 50 仍保留主要�
 - External grass 公開結果：`results/robust_v2/map_generator_external_grass_gallery.jpg`
 - TextureSAM 相容性摘要：`results/robust_v2/texturesam_compatibility_summary.json`
 
-## 12. 重現指令
+## 13. 重現指令
 
 ```powershell
 $python = 'python'

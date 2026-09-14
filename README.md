@@ -44,6 +44,15 @@ For dense maps, generator `G` reached `83.48%` binary agreement with the clean D
 
 ![Demo images across noise levels](results/robust_v2/freq_aware_seg_demo_noise_comparison.jpg)
 
+The strongest patch model was also evaluated densely by tiling its central
+`8x8` predictions at native resolution. It remains visually stable under
+noise, but predicts only 0–1.3% of these five full images as texture at the
+validation threshold `0.5`. This exposes a distribution gap between the
+extreme-Sobel patch benchmark and arbitrary full-image locations; the 97% patch
+accuracy must not be interpreted as dense-map accuracy.
+
+![Spatial 32x32 dense diagnostic](results/robust_v2/spatial32_demo_noise_comparison.jpg)
+
 The controlled diagnostics also expose important failures: `G` misses a synthetic 4-pixel checkerboard and over-predicts a low-contrast periodic pattern. The current model generalizes within held-out DIV2K natural images, but is not a universal texture detector.
 
 See:
@@ -113,6 +122,14 @@ python infer_map_generator.py \
   --checkpoint checkpoints/map_generator_g.pt \
   --input-dir /path/to/images \
   --output-dir outputs/g_maps
+```
+
+Blockwise full-image inference with the Spatial `32x32` patch classifier:
+
+```bash
+python infer_spatial32_dense.py \
+  --input-dir /path/to/images \
+  --sigmas 0 15 50
 ```
 
 For a controlled synthetic-noise test, add `--sigma 15` or `--sigma 50`. Do not add `--sigma` to images that already contain real noise.
