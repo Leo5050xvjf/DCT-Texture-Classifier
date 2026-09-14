@@ -22,6 +22,8 @@ This directory contains compact, reviewable copies of the completed experiment o
 - `validation_sigma_*.jpg`: dense natural-image validation examples.
 - `g_diagnostics_sigma*_gallery.jpg`: successful and failed controlled cases.
 - `freq_aware_seg_demo_noise_comparison.jpg`: five demo images at sigma 0/15/50.
+- `dct_teacher_demo_noise_comparison.jpg`: the exact stride-1,
+  overlap-averaged clean DCT teacher applied directly at sigma 0/15/50.
 - `spatial32_demo_noise_comparison.jpg/.json`: blockwise full-image diagnostic
   for the Spatial 32x32 classifier at sigma 0/15/50.
 - `map_generator_external_grass_gallery.jpg`: full-resolution external inference.

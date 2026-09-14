@@ -17,11 +17,19 @@ from dct_texture.robust_models import make_robust_model
 from dct_texture.map_model import MapGeneratorUNet
 from dct_texture.teacher_map import teacher_maps_for_crops
 from build_context_dataset import extract_context
+from infer import add_awgn as add_dct_awgn
 from infer_map_generator import infer_tiled, tile_starts
 from infer_spatial32_dense import infer_blockwise
 
 
 class CoreTests(unittest.TestCase):
+    def test_dct_awgn_zero_and_seeded(self) -> None:
+        gray = np.arange(64, dtype=np.uint8).reshape(8, 8)
+        np.testing.assert_allclose(add_dct_awgn(gray, 0.0, 7), gray.astype(np.float32) / 255.0)
+        first = add_dct_awgn(gray, 15.0, 7)
+        second = add_dct_awgn(gray, 15.0, 7)
+        np.testing.assert_array_equal(first, second)
+
     def test_dct_matches_opencv_and_torch(self) -> None:
         rng = np.random.default_rng(1)
         patches = rng.normal(size=(5, 8, 8)).astype(np.float32)

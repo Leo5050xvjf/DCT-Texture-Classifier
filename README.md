@@ -44,6 +44,14 @@ For dense maps, generator `G` reached `83.48%` binary agreement with the clean D
 
 ![Demo images across noise levels](results/robust_v2/freq_aware_seg_demo_noise_comparison.jpg)
 
+The matching direct-teacher gallery confirms the intended distillation setup:
+the sigma-0 DCT map is `G`'s target, while applying that clean-only DCT teacher
+directly to sigma-15 or sigma-50 inputs makes all five demo images essentially
+100% texture. `G` is trained to recover the clean target from a noisy input,
+not to imitate the teacher's noisy-input failure.
+
+![Direct DCT teacher across noise levels](results/robust_v2/dct_teacher_demo_noise_comparison.jpg)
+
 The strongest patch model was also evaluated densely by tiling its central
 `8x8` predictions at native resolution. At sigma 15, its maps retain 95.97%
 binary agreement and 0.973 mean probability correlation with the clean-input

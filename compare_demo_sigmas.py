@@ -16,12 +16,13 @@ def heatmap(probability: np.ndarray, size: tuple[int, int]) -> np.ndarray:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Compare G maps at multiple synthetic noise levels")
+    parser = argparse.ArgumentParser(description="Compare texture maps at multiple synthetic noise levels")
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--sigma0-root", type=Path, required=True)
     parser.add_argument("--sigma15-root", type=Path, required=True)
     parser.add_argument("--sigma50-root", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--model-label", default="G")
     parser.add_argument("--width", type=int, default=1800)
     args = parser.parse_args()
 
@@ -33,7 +34,12 @@ def main() -> None:
         for sigma, root in ((0, args.sigma0_root), (15, args.sigma15_root), (50, args.sigma50_root)):
             probability = np.load(root / path.stem / "texture_probability.npy")
             fraction = float((probability >= 0.5).mean())
-            panels.append(labeled_panel(heatmap(probability, size), f"G sigma={sigma}, P>=0.5: {fraction:.1%}"))
+            panels.append(
+                labeled_panel(
+                    heatmap(probability, size),
+                    f"{args.model_label} sigma={sigma}, P>=0.5: {fraction:.1%}",
+                )
+            )
         row = np.hstack(panels)
         new_height = int(round(row.shape[0] * args.width / row.shape[1]))
         row = cv2.resize(row, (args.width, new_height), interpolation=cv2.INTER_AREA)

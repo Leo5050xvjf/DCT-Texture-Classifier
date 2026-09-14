@@ -25,9 +25,19 @@ from dct_texture.core import (
 from dct_texture.model import DCTTextureClassifier
 
 
+def add_awgn(gray_u8: np.ndarray, sigma: float, seed: int) -> np.ndarray:
+    clean = gray_u8.astype(np.float32) / 255.0
+    generator = np.random.default_rng(seed)
+    return np.clip(
+        clean + generator.normal(0.0, sigma / 255.0, clean.shape),
+        0.0,
+        1.0,
+    ).astype(np.float32)
+
+
 @torch.inference_mode()
 def infer_grids(
-    gray_u8: np.ndarray,
+    gray: np.ndarray,
     model: DCTTextureClassifier,
     mean: torch.Tensor,
     std: torch.Tensor,
@@ -36,7 +46,6 @@ def infer_grids(
     row_block: int,
     batch_size: int,
 ) -> tuple[np.ndarray, np.ndarray]:
-    gray = gray_u8.astype(np.float32) / 255.0
     h, w = gray.shape
     ph, pw = h - 7, w - 7
     probability_grid = np.empty((ph, pw), dtype=np.float32)
@@ -118,6 +127,8 @@ def main() -> None:
     parser.add_argument("--evenly-spaced", action="store_true")
     parser.add_argument("--row-block", type=int, default=32)
     parser.add_argument("--batch-size", type=int, default=65536)
+    parser.add_argument("--sigma", type=float, default=0.0, help="Optional synthetic AWGN on the 8-bit intensity scale")
+    parser.add_argument("--seed", type=int, default=20260913)
     args = parser.parse_args()
 
     files = image_files(args.input_dir)
@@ -144,13 +155,13 @@ def main() -> None:
     for index, path in enumerate(files, start=1):
         started = time.perf_counter()
         bgr = read_bgr(path)
-        gray = to_luma_u8(bgr)
+        gray = add_awgn(to_luma_u8(bgr), args.sigma, args.seed + index)
         probability_grid, hf_grid = infer_grids(
             gray, model, mean, std, basis, device, args.row_block, args.batch_size,
         )
         probability_map = aggregate_patch_probabilities(probability_grid, gray.shape)
         hf_map = aggregate_patch_probabilities(hf_grid, gray.shape)
-        sobel_map = sobel_magnitude(gray)
+        sobel_map = sobel_magnitude(np.rint(gray * 255.0).astype(np.uint8))
         record = save_outputs(path, bgr, probability_map, hf_map, sobel_map, args.output_dir)
         record["elapsed_seconds"] = time.perf_counter() - started
         records.append(record)
@@ -166,6 +177,8 @@ def main() -> None:
         "patch_size": 8,
         "stride": 1,
         "aggregation": "mean of probabilities from all overlapping 8x8 patches",
+        "synthetic_noise_sigma": args.sigma,
+        "seed": args.seed,
         "total_seconds": time.perf_counter() - total_started,
         "images": records,
     }
@@ -175,4 +188,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
