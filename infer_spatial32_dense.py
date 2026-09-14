@@ -86,6 +86,9 @@ def infer_blockwise(
             [padded[y : y + context_size, x : x + context_size] for y, x in batch_coordinates]
         )
         tensor = torch.from_numpy(contexts[:, None]).to(device)
+        # Match train_robust_patch.prepare_inputs exactly. The classifier was
+        # never trained on raw [0, 1] tensors.
+        tensor = (tensor - 0.5) / 0.25
         probabilities = torch.sigmoid(model(tensor)).cpu().numpy()
         for probability, (y, x) in zip(probabilities, batch_coordinates):
             block_probabilities[y // target_size, x // target_size] = probability
@@ -265,6 +268,7 @@ def main() -> None:
         "input_dir": str(args.input_dir),
         "device": str(device),
         "method": "non-overlapping 8x8 targets from 32x32 reflected contexts",
+        "input_normalization": "(luminance_[0,1] - 0.5) / 0.25",
         "resize": False,
         "sigmas": args.sigmas,
         "seed": args.seed,

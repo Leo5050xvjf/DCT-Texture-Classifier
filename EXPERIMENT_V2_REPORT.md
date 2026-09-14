@@ -170,15 +170,26 @@ classifier 以不重疊 8×8 target blocks 跑過 `Freq-Aware-Seg` 的五張完�
 demo 原圖。每個 block 使用完整 32×32 reflected context，保持原生解析度，
 並比較 sigma 0、15、50。
 
-標準 threshold 0.5 下，各圖被判為 texture 的比例只有 0–1.3%。sigma 15
-相對 sigma 0 的平均 binary agreement 為 99.94%，sigma 50 為 99.76%；但這些
-數字受到大量 negative predictions 膨脹。視覺上高分結構在 sigma 15 大致
-穩定，sigma 50 仍可辨認主要輪廓，然而絕對機率過低。
+首先做 inference correctness audit：同一 checkpoint 在原 2,000 個
+validation patches 上完整重現 sigma 0/15 的 97.95% 與 sigma 50 的 96.85%。
+第一次 full-image visualization 曾漏掉訓練時的
+`(input - 0.5) / 0.25` normalization，造成錯誤的 0–1.3% texture 結果；該圖
+已作廢、修正並加入 normalization regression test。
 
-這項結果顯示：97% patch accuracy 是在每張圖極高／極低 Sobel 區域抽出的
-平衡 validation patches 上成立。任意 full-image 位置包含大量未參與訓練的
-中間難度區域，因此不能把該數字解讀為 dense-map accuracy，也不應直接用
-0.5 threshold 部署。結果位於
+修正後，sigma 0 的 texture 比例為 22.5–31.7%，sigma 15 為 21.9–29.6%，
+sigma 50 為 24.8–50.9%。sigma 15 相對 sigma 0 的平均 binary agreement 為
+95.97%、probability correlation 為 0.973；sigma 50 分別降至 83.55% 與
+0.760。中等 noise 下結構穩定，sigma 50 則出現明顯 false positives，尤其
+均勻草地由 31.7% 上升到 50.9%。
+
+Spatial 32 與 G 不應輸出完全相同：Spatial 32 直接使用 100×100
+極高／極低 Sobel 區域抽出的 hard labels 訓練；G 才是用 clean DCT
+classifier 產生的 stride-1、overlap-averaged dense soft map 當 teacher。
+此外前者以 BCE 分類單一中央 8×8 block，後者以 MSE 學習完整 128×128
+map。這些 target、loss、context 與 aggregation 差異會保留在輸出中。
+
+五張 demo 沒有 dense GT，所以不能把 97% extreme-patch accuracy 解讀為
+full-image accuracy。結果位於
 `results/robust_v2/spatial32_demo_noise_comparison.jpg/.json`。
 
 ## 10. 本輪限制

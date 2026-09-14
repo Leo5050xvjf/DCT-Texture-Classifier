@@ -45,11 +45,11 @@ For dense maps, generator `G` reached `83.48%` binary agreement with the clean D
 ![Demo images across noise levels](results/robust_v2/freq_aware_seg_demo_noise_comparison.jpg)
 
 The strongest patch model was also evaluated densely by tiling its central
-`8x8` predictions at native resolution. It remains visually stable under
-noise, but predicts only 0–1.3% of these five full images as texture at the
-validation threshold `0.5`. This exposes a distribution gap between the
-extreme-Sobel patch benchmark and arbitrary full-image locations; the 97% patch
-accuracy must not be interpreted as dense-map accuracy.
+`8x8` predictions at native resolution. At sigma 15, its maps retain 95.97%
+binary agreement and 0.973 mean probability correlation with the clean-input
+maps. At sigma 50 these fall to 83.55% and 0.760, with visible noise false
+positives. Because the five demo images have no dense ground truth, the 97%
+extreme-patch accuracy must still not be interpreted as dense-map accuracy.
 
 ![Spatial 32x32 dense diagnostic](results/robust_v2/spatial32_demo_noise_comparison.jpg)
 

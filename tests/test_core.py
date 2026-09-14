@@ -115,14 +115,14 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(tile_starts(100, 64, 40)[-1], 36)
 
     def test_spatial32_blockwise_map_preserves_native_shape(self) -> None:
-        class ZeroLogitModel(torch.nn.Module):
+        class MeanLogitModel(torch.nn.Module):
             def forward(self, context: torch.Tensor) -> torch.Tensor:
-                return torch.zeros(context.shape[0], device=context.device)
+                return context.mean(dim=(1, 2, 3))
 
-        gray = np.arange(19 * 25, dtype=np.uint8).reshape(19, 25)
+        gray = np.full((19, 25), 255, dtype=np.uint8)
         probability, noisy = infer_blockwise(
             gray,
-            ZeroLogitModel(),
+            MeanLogitModel(),
             torch.device("cpu"),
             batch_size=4,
             sigma=0.0,
@@ -130,7 +130,8 @@ class CoreTests(unittest.TestCase):
         )
         self.assertEqual(probability.shape, gray.shape)
         self.assertEqual(noisy.shape, gray.shape)
-        np.testing.assert_allclose(probability, 0.5)
+        expected = torch.sigmoid(torch.tensor(2.0)).item()
+        np.testing.assert_allclose(probability, expected)
         np.testing.assert_allclose(noisy, gray.astype(np.float32) / 255.0)
 
 
