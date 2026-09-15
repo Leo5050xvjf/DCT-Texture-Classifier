@@ -10,7 +10,7 @@ import numpy as np
 import torch
 
 from dct_texture.core import image_files, labeled_panel, read_bgr, resize_to_height, to_luma_u8
-from dct_texture.map_model import MapGeneratorUNet
+from dct_texture.map_model import make_map_generator, map_generator_logits
 
 
 def tile_starts(length: int, tile_size: int, stride: int) -> list[int]:
@@ -31,7 +31,7 @@ def blend_window(tile_size: int) -> np.ndarray:
 @torch.inference_mode()
 def infer_tiled(
     gray_u8: np.ndarray,
-    model: MapGeneratorUNet,
+    model: torch.nn.Module,
     device: torch.device,
     tile_size: int,
     overlap: int,
@@ -39,15 +39,19 @@ def infer_tiled(
     batch_size: int,
     sigma: float,
     seed: int,
+    kind: str = "unet",
+    condition_sigma: float | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     clean = gray_u8.astype(np.float32) / 255.0
     generator = np.random.default_rng(seed)
     noisy = np.clip(clean + generator.normal(0.0, sigma / 255.0, clean.shape), 0.0, 1.0).astype(np.float32)
     padded = cv2.copyMakeBorder(noisy, halo, halo, halo, halo, cv2.BORDER_REFLECT_101)
+    clean_padded = cv2.copyMakeBorder(clean, halo, halo, halo, halo, cv2.BORDER_REFLECT_101)
     extra_bottom = max(0, tile_size - padded.shape[0])
     extra_right = max(0, tile_size - padded.shape[1])
     if extra_bottom or extra_right:
         padded = cv2.copyMakeBorder(padded, 0, extra_bottom, 0, extra_right, cv2.BORDER_REFLECT_101)
+        clean_padded = cv2.copyMakeBorder(clean_padded, 0, extra_bottom, 0, extra_right, cv2.BORDER_REFLECT_101)
 
     stride = tile_size - overlap
     ys = tile_starts(padded.shape[0], tile_size, stride)
@@ -60,8 +64,16 @@ def infer_tiled(
     for start in range(0, len(coordinates), batch_size):
         batch_coordinates = coordinates[start : start + batch_size]
         batch = np.stack([padded[y : y + tile_size, x : x + tile_size] for y, x in batch_coordinates])
-        tensor = torch.from_numpy(batch[:, None]).to(device)
-        predictions = torch.sigmoid(model(tensor)).cpu().numpy()
+        if condition_sigma is None:
+            clean_batch = np.stack(
+                [clean_padded[y : y + tile_size, x : x + tile_size] for y, x in batch_coordinates]
+            )
+            supplied = np.sqrt(np.square(batch - clean_batch).mean(axis=(1, 2))) * 255.0
+        else:
+            supplied = np.full((len(batch),), condition_sigma, dtype=np.float32)
+        tensor = torch.from_numpy(batch).to(device)
+        sigma_tensor = torch.from_numpy(supplied.astype(np.float32)).to(device)
+        predictions = torch.sigmoid(map_generator_logits(model, kind, tensor, sigma_tensor)).cpu().numpy()
         for prediction, (y, x) in zip(predictions, batch_coordinates):
             accumulator[y : y + tile_size, x : x + tile_size] += prediction * window
             weights[y : y + tile_size, x : x + tile_size] += window
@@ -121,6 +133,10 @@ def main() -> None:
     parser.add_argument("--input-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--sigma", type=float, default=0.0, help="Optional synthetic AWGN on the 8-bit intensity scale")
+    parser.add_argument(
+        "--condition-sigma", type=float, default=None,
+        help="Sigma supplied to conditional G. Default uses oracle RMS for synthetic noise; real noisy input needs an estimate.",
+    )
     parser.add_argument("--seed", type=int, default=20260913)
     parser.add_argument("--tile-size", type=int, default=128)
     parser.add_argument("--overlap", type=int, default=64)
@@ -138,7 +154,8 @@ def main() -> None:
         raise RuntimeError(f"No images found in {args.input_dir}")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     checkpoint = torch.load(args.checkpoint, map_location=device, weights_only=False)
-    model = MapGeneratorUNet(base_channels=int(checkpoint["base_channels"])).to(device)
+    kind = checkpoint.get("kind", "unet")
+    model = make_map_generator(kind, int(checkpoint["base_channels"])).to(device)
     model.load_state_dict(checkpoint["model"])
     args.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -150,6 +167,7 @@ def main() -> None:
         probability, noisy = infer_tiled(
             to_luma_u8(bgr), model, device, args.tile_size, args.overlap, args.halo,
             args.batch_size, args.sigma, args.seed + index,
+            kind, args.condition_sigma,
         )
         record = save_case(path, bgr, noisy, probability, args.output_dir)
         record["elapsed_seconds"] = time.perf_counter() - started
@@ -169,6 +187,8 @@ def main() -> None:
         "halo": args.halo,
         "blend": "floored 2-D Hann window",
         "synthetic_noise_sigma": args.sigma,
+        "model_kind": kind,
+        "condition_sigma": args.condition_sigma,
         "total_seconds": time.perf_counter() - total_started,
         "images": records,
     }

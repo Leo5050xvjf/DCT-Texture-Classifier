@@ -1,0 +1,44 @@
+[
+  {
+    "corruption": "awgn_100",
+    "output": "results\\g_limit\\g_limit_awgn_100_gallery.jpg",
+    "validation_indices": [
+      123,
+      60,
+      180,
+      76,
+      98,
+      127
+    ],
+    "mean_effective_sigma": 76.5113296508789,
+    "models": {
+      "baseline": "outputs\\robust_v2\\map_generator\\best.pt",
+      "AWGN100 conditional": "outputs\\g_limit\\g_awgn100_conditional\\best.pt",
+      "AWGN100 large": "outputs\\g_limit\\g_awgn100_large\\best.pt",
+      "diverse small": "outputs\\g_limit\\g_diverse_paired\\best.pt",
+      "diverse distilled": "outputs\\g_limit\\g_diverse_distilled\\best.pt",
+      "diverse large": "outputs\\g_limit\\g_diverse_large\\best.pt"
+    }
+  },
+  {
+    "corruption": "corr_awgn_50",
+    "output": "results\\g_limit\\g_limit_corr_awgn_50_gallery.jpg",
+    "validation_indices": [
+      123,
+      60,
+      180,
+      76,
+      98,
+      127
+    ],
+    "mean_effective_sigma": 44.45103454589844,
+    "models": {
+      "baseline": "outputs\\robust_v2\\map_generator\\best.pt",
+      "AWGN100 conditional": "outputs\\g_limit\\g_awgn100_conditional\\best.pt",
+      "AWGN100 large": "outputs\\g_limit\\g_awgn100_large\\best.pt",
+      "diverse small": "outputs\\g_limit\\g_diverse_paired\\best.pt",
+      "diverse distilled": "outputs\\g_limit\\g_diverse_distilled\\best.pt",
+      "diverse large": "outputs\\g_limit\\g_diverse_large\\best.pt"
+    }
+  }
+]

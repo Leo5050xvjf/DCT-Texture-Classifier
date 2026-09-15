@@ -42,3 +42,20 @@ Model binaries are stored separately under `checkpoints/`.
 
 The complete interpretation and limitations are documented in
 `STCNN_LIMIT_REPORT.md`.
+
+## `g_limit`
+
+- `summary.json`, `replicate_summary.csv`: compact capacity, distillation, and
+  three-seed summaries.
+- `evaluation.json/.csv`: all model/noise measurements.
+- `replicate_evaluation.json/.csv`: three independently trained checkpoints for
+  each key model.
+- `sigma_sensitivity.json/.csv`: supplied-sigma calibration ablation.
+- `distillation_evaluation.json/.csv`: large-to-small G comparison.
+- `g_limit_summary.png`: capacity, noise-family, repeated-run, and sigma plots.
+- `g_limit_awgn_100_gallery.jpg`: representative validation crops at AWGN 100.
+- `g_limit_corr_awgn_50_gallery.jpg`: matching correlated-noise comparison.
+
+The complete interpretation is documented in `G_LIMIT_REPORT.md`.
+
+Selected model binaries are under `checkpoints/g_limit/`.

@@ -68,6 +68,7 @@ See:
 - [Paper-style v1 report](EXPERIMENT_REPORT.md)
 - [Robust v2 report](EXPERIMENT_V2_REPORT.md)
 - [STCNN noise-limit study](STCNN_LIMIT_REPORT.md)
+- [Dense G noise/capacity-limit study](G_LIMIT_REPORT.md)
 - [Machine-readable v2 summary](results/robust_v2/summary.json)
 - [Controlled diagnostic results](results/robust_v2/controlled_diagnostics.csv)
 
@@ -79,6 +80,15 @@ study also identifies correlated noise versus stochastic clean texture as an
 unresolved single-patch ambiguity.
 
 ![STCNN limit-study summary](results/stcnn_limit/stcnn_limit_summary.png)
+
+The dense-G follow-up extends training through AWGN sigma 100, evaluates six
+noise families, scales G from 0.19M to 12.17M parameters, tests explicit sigma,
+and distills a 3.04M robust G into the original 0.762M model. Across three
+training seeds, AWGN-100 agreement saturates near 79%; diverse-noise training,
+not raw parameter count, provides the largest improvement under correlated
+noise. See the report for the pseudo-label and oracle-sigma limitations.
+
+![Dense G limit-study summary](results/g_limit/g_limit_summary.png)
 
 ## Method overview
 
@@ -141,6 +151,18 @@ python infer_map_generator.py \
   --input-dir /path/to/images \
   --output-dir outputs/g_maps
 ```
+
+New limit-study checkpoints use the same command. For conditional checkpoints,
+`--condition-sigma` supplies a calibrated corruption RMS estimate. If synthetic
+noise is added with `--sigma`, the script can compute the oracle RMS because the
+clean source is known; an already-noisy real image does not provide that oracle.
+
+Published limit-study checkpoints:
+
+- `checkpoints/g_limit/g_awgn100_large.pt`: best non-conditional choice for known AWGN-like noise.
+- `checkpoints/g_limit/g_awgn100_conditional.pt`: compact conditional AWGN model.
+- `checkpoints/g_limit/g_diverse_large.pt`: strongest overall mixed-noise model.
+- `checkpoints/g_limit/g_diverse_distilled.pt`: compact mixed-noise compromise.
 
 Blockwise full-image inference with the Spatial `32x32` patch classifier:
 
@@ -212,15 +234,17 @@ assets/diagnostics_inputs/   Small procedural diagnostic inputs
 checkpoints/                 Published v1/v2 PyTorch checkpoints
 results/paper_v1/            V1 metrics and selected figures
 results/robust_v2/           Robustness metrics and selected figures
+results/g_limit/             Dense G limit-study metrics and figures
 EXPERIMENT_REPORT.md         Detailed clean DCT experiment
 EXPERIMENT_V2_REPORT.md      Detailed robust-model experiment
+G_LIMIT_REPORT.md            Dense G capacity/noise-limit experiment
 ```
 
 ## Limitations
 
 - Ground truth is an operational Sobel/DCT pseudo-label, not human material annotation.
-- The main quantitative run uses one random seed.
-- Robustness training currently covers clipped additive white Gaussian noise, not a complete camera ISP/noise pipeline.
+- The original v1/v2 runs use one random seed; the key STCNN/G limit comparisons use three training seeds.
+- The limit studies cover six synthetic corruption families, not a complete camera ISP/noise pipeline.
 - Strong out-of-distribution synthetic failures are documented in the v2 report.
 - Reported performance measures reproduction of the teacher definition, not a unique or universal definition of texture.
 

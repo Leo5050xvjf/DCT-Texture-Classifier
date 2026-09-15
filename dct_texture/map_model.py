@@ -22,10 +22,10 @@ class ResidualBlock(nn.Module):
 class MapGeneratorUNet(nn.Module):
     """Standalone U-Net-like noisy-image to clean-texture-map generator."""
 
-    def __init__(self, base_channels: int = 16) -> None:
+    def __init__(self, base_channels: int = 16, input_channels: int = 1) -> None:
         super().__init__()
         c = base_channels
-        self.enc1 = ResidualBlock(1, c)
+        self.enc1 = ResidualBlock(input_channels, c)
         self.down1 = nn.Conv2d(c, c * 2, 4, stride=2, padding=1)
         self.enc2 = ResidualBlock(c * 2, c * 2)
         self.down2 = nn.Conv2d(c * 2, c * 4, 4, stride=2, padding=1)
@@ -52,6 +52,38 @@ class MapGeneratorUNet(nn.Module):
         return self.output(d1).squeeze(1)
 
 
+class ConditionalMapGeneratorUNet(MapGeneratorUNet):
+    """Map generator conditioned on one scalar corruption-level estimate per image."""
+
+    def __init__(self, base_channels: int = 16) -> None:
+        super().__init__(base_channels=base_channels, input_channels=2)
+
+    def forward(self, x: torch.Tensor, sigma_normalized: torch.Tensor) -> torch.Tensor:
+        if sigma_normalized.ndim != 1 or len(sigma_normalized) != len(x):
+            raise ValueError("sigma_normalized must have shape [batch]")
+        sigma_map = sigma_normalized[:, None, None, None].expand(-1, 1, x.shape[-2], x.shape[-1])
+        return super().forward(torch.cat([x, sigma_map], dim=1))
+
+
+def make_map_generator(kind: str = "unet", base_channels: int = 16) -> nn.Module:
+    if kind == "unet":
+        return MapGeneratorUNet(base_channels=base_channels)
+    if kind == "unet_conditional":
+        return ConditionalMapGeneratorUNet(base_channels=base_channels)
+    raise ValueError(f"Unknown map generator kind: {kind}")
+
+
+def map_generator_logits(
+    model: nn.Module,
+    kind: str,
+    observed: torch.Tensor,
+    sigma: torch.Tensor,
+) -> torch.Tensor:
+    inputs = observed[:, None]
+    if kind == "unet_conditional":
+        return model(inputs, sigma / 100.0)
+    return model(inputs)
+
+
 def parameter_count(model: nn.Module) -> int:
     return sum(parameter.numel() for parameter in model.parameters())
-

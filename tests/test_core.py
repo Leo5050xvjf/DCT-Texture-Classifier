@@ -14,7 +14,8 @@ from dct_texture.core import (
 from dct_texture.model import DCTTextureClassifier
 from dct_texture.metrics import best_balanced_threshold, binary_metrics
 from dct_texture.robust_models import make_robust_model
-from dct_texture.map_model import MapGeneratorUNet
+from dct_texture.map_model import ConditionalMapGeneratorUNet, MapGeneratorUNet
+from dct_texture.corruptions import fixed_corruption
 from dct_texture.teacher_map import teacher_maps_for_crops
 from build_context_dataset import extract_context
 from infer import add_awgn as add_dct_awgn
@@ -100,6 +101,17 @@ class CoreTests(unittest.TestCase):
         model = MapGeneratorUNet(base_channels=4)
         self.assertEqual(model(torch.zeros(2, 1, 32, 40)).shape, (2, 32, 40))
 
+    def test_conditional_map_generator_shape(self) -> None:
+        model = ConditionalMapGeneratorUNet(base_channels=4)
+        actual = model(torch.zeros(2, 1, 32, 40), torch.tensor([0.0, 1.0]))
+        self.assertEqual(actual.shape, (2, 32, 40))
+
+    def test_map_corruptions_are_seeded(self) -> None:
+        clean = torch.full((3, 32, 40), 0.5)
+        first = fixed_corruption(clean, "corr_awgn_25", 17)
+        second = fixed_corruption(clean, "corr_awgn_25", 17)
+        np.testing.assert_array_equal(first.numpy(), second.numpy())
+
     def test_teacher_overlap_map_constant_probability(self) -> None:
         class ZeroTeacher(torch.nn.Module):
             def forward(self, x):
@@ -126,6 +138,19 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(noisy.shape, gray.shape)
         np.testing.assert_allclose(probability, 0.5, atol=1e-6)
         self.assertEqual(tile_starts(100, 64, 40)[-1], 36)
+
+    def test_tiled_generator_supports_sigma_conditioning(self) -> None:
+        class ConditionalZeroMap(torch.nn.Module):
+            def forward(self, x, sigma):
+                return torch.zeros((len(x), x.shape[-2], x.shape[-1]), device=x.device) + sigma[:, None, None]
+
+        gray = np.full((65, 79), 127, dtype=np.uint8)
+        probability, _ = infer_tiled(
+            gray, ConditionalZeroMap(), torch.device("cpu"), tile_size=32, overlap=16,
+            halo=8, batch_size=4, sigma=0.0, seed=1,
+            kind="unet_conditional", condition_sigma=100.0,
+        )
+        np.testing.assert_allclose(probability, torch.sigmoid(torch.tensor(1.0)).item(), atol=1e-6)
 
     def test_spatial32_blockwise_map_preserves_native_shape(self) -> None:
         class MeanLogitModel(torch.nn.Module):
