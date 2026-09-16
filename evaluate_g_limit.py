@@ -75,6 +75,10 @@ def main() -> None:
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--seed", type=int, default=20261915)
+    parser.add_argument(
+        "--target-description",
+        default="clean v1 DCT teacher stride-1 overlap-averaged soft map",
+    )
     args = parser.parse_args()
     data = np.load(args.data)
     clean = torch.from_numpy(data["clean"].astype(np.float32) / 255.0)
@@ -158,7 +162,7 @@ def main() -> None:
             "validation_crops": len(clean),
             "crop_size": int(clean.shape[-1]),
             "repeats": args.repeats,
-            "target": "clean v1 DCT teacher stride-1 overlap-averaged soft map",
+            "target": args.target_description,
             "conditional_sigma": "oracle per-crop RMS corruption level; deployment upper bound",
             "device": str(device),
             "seed": args.seed,

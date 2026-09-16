@@ -1,0 +1,46 @@
+{
+  "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_conditioned_oracle.pt",
+  "kind": "spatial32_conditional",
+  "input_dir": "..\\Freq-Aware-Seg\\docs\\demo_results\\originals",
+  "method": "stride-1 32x32 contexts; scalar central-8x8 predictions overlap-averaged",
+  "resize": false,
+  "sigmas": [
+    0.0
+  ],
+  "seed": 20260916,
+  "device": "cuda",
+  "elapsed_seconds": 37.24079670000356,
+  "records": [
+    {
+      "image": "div2k_0524.png",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.2452791514836023,
+      "elapsed_seconds": 4.8846178999810945
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.23944747235387046,
+      "elapsed_seconds": 8.642400799988536
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.9974944330792765,
+      "elapsed_seconds": 0.9184797000198159
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.3435318333333333,
+      "elapsed_seconds": 10.18295620000572
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.325099487866501,
+      "elapsed_seconds": 12.303019399987534
+    }
+  ],
+  "gallery": "results\\stcnn_stride1\\conditional_teacher_demo_clean.jpg"
+}

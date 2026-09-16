@@ -164,6 +164,34 @@ Published limit-study checkpoints:
 - `checkpoints/g_limit/g_diverse_large.pt`: strongest overall mixed-noise model.
 - `checkpoints/g_limit/g_diverse_distilled.pt`: compact mixed-noise compromise.
 
+### Stride-1 STCNN teacher and robust-P results
+
+The current dense STCNN inference evaluates every valid `32x32` context at
+stride 1, assigns its scalar prediction to the central `8x8` target, and
+averages all overlaps. This removes the artificial `8x8` block grid while
+preserving native image resolution:
+
+```bash
+python infer_stcnn_stride1.py \
+  --checkpoint checkpoints/stcnn_limit/stcnn_diverse_conditioned_oracle.pt \
+  --input /path/to/image.jpg \
+  --sigmas 0 15 50
+```
+
+Two full external-image suites are published under `results/stcnn_stride1/`:
+
+- `external_grass_best_p_suite_all.jpg`: clean-teacher P with exact sigma input.
+- `external_grass_robust_p_suite_all.jpg`: large robust P without a sigma input.
+
+The clean-teacher P recognizes low-contrast fine grass but suppresses true
+texture increasingly at high noise. The large robust P is substantially more
+stable across noise, but misses the clean low-contrast `piqsels_grass` case.
+This is the central observed texture-preservation/noise-rejection trade-off.
+
+New G checkpoints trained from clean stride-1 STCNN targets are under
+`checkpoints/g_stcnn_teacher/`; corresponding metrics and histories are under
+`results/g_stcnn_teacher/`.
+
 Blockwise full-image inference with the Spatial `32x32` patch classifier:
 
 ```bash
@@ -235,6 +263,8 @@ checkpoints/                 Published v1/v2 PyTorch checkpoints
 results/paper_v1/            V1 metrics and selected figures
 results/robust_v2/           Robustness metrics and selected figures
 results/g_limit/             Dense G limit-study metrics and figures
+results/stcnn_stride1/       Stride-1 P comparisons and external-image suites
+results/g_stcnn_teacher/     G results using clean stride-1 STCNN targets
 EXPERIMENT_REPORT.md         Detailed clean DCT experiment
 EXPERIMENT_V2_REPORT.md      Detailed robust-model experiment
 G_LIMIT_REPORT.md            Dense G capacity/noise-limit experiment

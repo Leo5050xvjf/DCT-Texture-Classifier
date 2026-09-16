@@ -1,0 +1,438 @@
+{
+  "protocol": {
+    "image": "..\\Freq-Aware-Seg\\data\\external_grass_test\\piqsels_grass.jpg",
+    "native_shape": [
+      607,
+      910
+    ],
+    "patch_validation_samples": 2000,
+    "patch_labels": "clean-image Sobel-extreme hard pseudo-labels",
+    "dense_method": "stride-1 32x32 context; central-8x8 scalar overlap average",
+    "sigmas": [
+      0.0,
+      50.0,
+      100.0
+    ],
+    "device": "cuda",
+    "seed": 20260916,
+    "elapsed_seconds": 20.94229720000294,
+    "selection_warning": "Dense image has no human ground truth; texture fraction is descriptive, not accuracy."
+  },
+  "models": {
+    "spatial32_mixed": {
+      "checkpoint": "checkpoints\\spatial32_mixed.pt",
+      "kind": "spatial32",
+      "parameters": 39777,
+      "patch_validation": {
+        "0.0": {
+          "threshold": 0.5,
+          "accuracy": 0.9795,
+          "balanced_accuracy": 0.9795,
+          "precision": 0.9917948717948718,
+          "recall": 0.967,
+          "specificity": 0.992,
+          "f1": 0.9792405063291139,
+          "auroc": 0.996305,
+          "tp": 967,
+          "tn": 992,
+          "fp": 8,
+          "fn": 33
+        },
+        "50.0": {
+          "threshold": 0.5,
+          "accuracy": 0.968,
+          "balanced_accuracy": 0.968,
+          "precision": 0.9824742268041237,
+          "recall": 0.953,
+          "specificity": 0.983,
+          "f1": 0.9675126903553299,
+          "auroc": 0.991855,
+          "tp": 953,
+          "tn": 983,
+          "fp": 17,
+          "fn": 47
+        },
+        "100.0": {
+          "threshold": 0.5,
+          "accuracy": 0.851,
+          "balanced_accuracy": 0.851,
+          "precision": 0.7891268533772653,
+          "recall": 0.958,
+          "specificity": 0.744,
+          "f1": 0.865401987353207,
+          "auroc": 0.964859,
+          "tp": 958,
+          "tn": 744,
+          "fp": 256,
+          "fn": 42
+        }
+      },
+      "dense_image": {
+        "0.0": {
+          "texture_fraction": 0.31577384724007457,
+          "agreement_with_clean": 1.0,
+          "mae_from_clean": 0.0,
+          "correlation_with_clean": 1.0
+        },
+        "50.0": {
+          "texture_fraction": 0.5135905280880569,
+          "agreement_with_clean": 0.6110034940347955,
+          "mae_from_clean": 0.23465152084827423,
+          "correlation_with_clean": 0.33976258931752307
+        },
+        "100.0": {
+          "texture_fraction": 0.8673570251823959,
+          "agreement_with_clean": 0.38013650270651916,
+          "mae_from_clean": 0.4273439943790436,
+          "correlation_with_clean": 0.07194865343533995
+        }
+      }
+    },
+    "awgn100_paired": {
+      "checkpoint": "checkpoints\\stcnn_limit\\stcnn_awgn100_paired.pt",
+      "kind": "spatial32",
+      "parameters": 39777,
+      "patch_validation": {
+        "0.0": {
+          "threshold": 0.5,
+          "accuracy": 0.982,
+          "balanced_accuracy": 0.982,
+          "precision": 0.9878542510121457,
+          "recall": 0.976,
+          "specificity": 0.988,
+          "f1": 0.9818913480885312,
+          "auroc": 0.996229,
+          "tp": 976,
+          "tn": 988,
+          "fp": 12,
+          "fn": 24
+        },
+        "50.0": {
+          "threshold": 0.5,
+          "accuracy": 0.9705,
+          "balanced_accuracy": 0.9704999999999999,
+          "precision": 0.9875647668393782,
+          "recall": 0.953,
+          "specificity": 0.988,
+          "f1": 0.9699745547073791,
+          "auroc": 0.993425,
+          "tp": 953,
+          "tn": 988,
+          "fp": 12,
+          "fn": 47
+        },
+        "100.0": {
+          "threshold": 0.5,
+          "accuracy": 0.926,
+          "balanced_accuracy": 0.9259999999999999,
+          "precision": 0.9111969111969112,
+          "recall": 0.944,
+          "specificity": 0.908,
+          "f1": 0.9273084479371315,
+          "auroc": 0.980995,
+          "tp": 944,
+          "tn": 908,
+          "fp": 92,
+          "fn": 56
+        }
+      },
+      "dense_image": {
+        "0.0": {
+          "texture_fraction": 0.2757789163060992,
+          "agreement_with_clean": 1.0,
+          "mae_from_clean": 0.0,
+          "correlation_with_clean": 1.0
+        },
+        "50.0": {
+          "texture_fraction": 0.17099951119720477,
+          "agreement_with_clean": 0.722799934826294,
+          "mae_from_clean": 0.17199862003326416,
+          "correlation_with_clean": 0.37137366895734925
+        },
+        "100.0": {
+          "texture_fraction": 0.5437569020765067,
+          "agreement_with_clean": 0.4999420678168619,
+          "mae_from_clean": 0.2709439694881439,
+          "correlation_with_clean": 0.06730248078020362
+        }
+      }
+    },
+    "diverse_distilled": {
+      "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_distilled.pt",
+      "kind": "spatial32",
+      "parameters": 39777,
+      "patch_validation": {
+        "0.0": {
+          "threshold": 0.5,
+          "accuracy": 0.963,
+          "balanced_accuracy": 0.9630000000000001,
+          "precision": 0.9894291754756871,
+          "recall": 0.936,
+          "specificity": 0.99,
+          "f1": 0.9619732785200411,
+          "auroc": 0.993418,
+          "tp": 936,
+          "tn": 990,
+          "fp": 10,
+          "fn": 64
+        },
+        "50.0": {
+          "threshold": 0.5,
+          "accuracy": 0.962,
+          "balanced_accuracy": 0.962,
+          "precision": 0.9904458598726115,
+          "recall": 0.933,
+          "specificity": 0.991,
+          "f1": 0.9608650875386201,
+          "auroc": 0.99131,
+          "tp": 933,
+          "tn": 991,
+          "fp": 9,
+          "fn": 67
+        },
+        "100.0": {
+          "threshold": 0.5,
+          "accuracy": 0.932,
+          "balanced_accuracy": 0.9319999999999999,
+          "precision": 0.9408163265306122,
+          "recall": 0.922,
+          "specificity": 0.942,
+          "f1": 0.9313131313131313,
+          "auroc": 0.979036,
+          "tp": 922,
+          "tn": 942,
+          "fp": 58,
+          "fn": 78
+        }
+      },
+      "dense_image": {
+        "0.0": {
+          "texture_fraction": 0.011649799952930102,
+          "agreement_with_clean": 1.0,
+          "mae_from_clean": 0.0,
+          "correlation_with_clean": 1.0
+        },
+        "50.0": {
+          "texture_fraction": 0.049410721074642,
+          "agreement_with_clean": 0.9465973894309974,
+          "mae_from_clean": 0.11659678816795349,
+          "correlation_with_clean": 0.377047145834105
+        },
+        "100.0": {
+          "texture_fraction": 0.39098068323768487,
+          "agreement_with_clean": 0.6118706664011442,
+          "mae_from_clean": 0.30494317412376404,
+          "correlation_with_clean": 0.17008357457846085
+        }
+      }
+    },
+    "diverse_sigma_robust": {
+      "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_sigma_robust.pt",
+      "kind": "spatial32_conditional",
+      "parameters": 42401,
+      "patch_validation": {
+        "0.0": {
+          "threshold": 0.5,
+          "accuracy": 0.9735,
+          "balanced_accuracy": 0.9735,
+          "precision": 0.9906735751295337,
+          "recall": 0.956,
+          "specificity": 0.991,
+          "f1": 0.9730279898218829,
+          "auroc": 0.99621,
+          "tp": 956,
+          "tn": 991,
+          "fp": 9,
+          "fn": 44
+        },
+        "50.0": {
+          "threshold": 0.5,
+          "accuracy": 0.955,
+          "balanced_accuracy": 0.9550000000000001,
+          "precision": 0.9945652173913043,
+          "recall": 0.915,
+          "specificity": 0.995,
+          "f1": 0.953125,
+          "auroc": 0.98793,
+          "tp": 915,
+          "tn": 995,
+          "fp": 5,
+          "fn": 85
+        },
+        "100.0": {
+          "threshold": 0.5,
+          "accuracy": 0.9295,
+          "balanced_accuracy": 0.9295,
+          "precision": 0.9414182939362795,
+          "recall": 0.916,
+          "specificity": 0.943,
+          "f1": 0.9285352255448556,
+          "auroc": 0.981298,
+          "tp": 916,
+          "tn": 943,
+          "fp": 57,
+          "fn": 84
+        }
+      },
+      "dense_image": {
+        "0.0": {
+          "texture_fraction": 0.941356337237721,
+          "agreement_with_clean": 1.0,
+          "mae_from_clean": 0.0,
+          "correlation_with_clean": 1.0
+        },
+        "50.0": {
+          "texture_fraction": 0.3094411354707895,
+          "agreement_with_clean": 0.3549776417980701,
+          "mae_from_clean": 0.3017302453517914,
+          "correlation_with_clean": 0.3661516414721238
+        },
+        "100.0": {
+          "texture_fraction": 0.5792367434871554,
+          "agreement_with_clean": 0.5765809149664174,
+          "mae_from_clean": 0.23740747570991516,
+          "correlation_with_clean": 0.12999927382084267
+        }
+      }
+    },
+    "diverse_conditional_oracle": {
+      "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_conditioned_oracle.pt",
+      "kind": "spatial32_conditional",
+      "parameters": 42401,
+      "patch_validation": {
+        "0.0": {
+          "threshold": 0.5,
+          "accuracy": 0.985,
+          "balanced_accuracy": 0.985,
+          "precision": 0.98989898989899,
+          "recall": 0.98,
+          "specificity": 0.99,
+          "f1": 0.9849246231155778,
+          "auroc": 0.997945,
+          "tp": 980,
+          "tn": 990,
+          "fp": 10,
+          "fn": 20
+        },
+        "50.0": {
+          "threshold": 0.5,
+          "accuracy": 0.9365,
+          "balanced_accuracy": 0.9365,
+          "precision": 0.9943374858437146,
+          "recall": 0.878,
+          "specificity": 0.995,
+          "f1": 0.9325544344131705,
+          "auroc": 0.985917,
+          "tp": 878,
+          "tn": 995,
+          "fp": 5,
+          "fn": 122
+        },
+        "100.0": {
+          "threshold": 0.5,
+          "accuracy": 0.5135,
+          "balanced_accuracy": 0.5135,
+          "precision": 1.0,
+          "recall": 0.027,
+          "specificity": 1.0,
+          "f1": 0.05258033106134372,
+          "auroc": 0.951095,
+          "tp": 27,
+          "tn": 1000,
+          "fp": 0,
+          "fn": 973
+        }
+      },
+      "dense_image": {
+        "0.0": {
+          "texture_fraction": 0.9974944330792765,
+          "agreement_with_clean": 1.0,
+          "mae_from_clean": 0.0,
+          "correlation_with_clean": 1.0
+        },
+        "50.0": {
+          "texture_fraction": 0.5280047794051089,
+          "agreement_with_clean": 0.5305103463258323,
+          "mae_from_clean": 0.45866748690605164,
+          "correlation_with_clean": 0.46002572831293437
+        },
+        "100.0": {
+          "texture_fraction": 0.0,
+          "agreement_with_clean": 0.002505566920723428,
+          "mae_from_clean": 0.965817391872406,
+          "correlation_with_clean": 0.003635936557736396
+        }
+      }
+    },
+    "diverse_large_teacher": {
+      "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_teacher.pt",
+      "kind": "spatial32_large",
+      "parameters": 633729,
+      "patch_validation": {
+        "0.0": {
+          "threshold": 0.5,
+          "accuracy": 0.9765,
+          "balanced_accuracy": 0.9764999999999999,
+          "precision": 0.9857288481141692,
+          "recall": 0.967,
+          "specificity": 0.986,
+          "f1": 0.9762746087834427,
+          "auroc": 0.995756,
+          "tp": 967,
+          "tn": 986,
+          "fp": 14,
+          "fn": 33
+        },
+        "50.0": {
+          "threshold": 0.5,
+          "accuracy": 0.974,
+          "balanced_accuracy": 0.974,
+          "precision": 0.9866529774127311,
+          "recall": 0.961,
+          "specificity": 0.987,
+          "f1": 0.9736575481256332,
+          "auroc": 0.993432,
+          "tp": 961,
+          "tn": 987,
+          "fp": 13,
+          "fn": 39
+        },
+        "100.0": {
+          "threshold": 0.5,
+          "accuracy": 0.94,
+          "balanced_accuracy": 0.94,
+          "precision": 0.9526748971193416,
+          "recall": 0.926,
+          "specificity": 0.954,
+          "f1": 0.9391480730223124,
+          "auroc": 0.97889,
+          "tp": 926,
+          "tn": 954,
+          "fp": 46,
+          "fn": 74
+        }
+      },
+      "dense_image": {
+        "0.0": {
+          "texture_fraction": 0.040480112967757116,
+          "agreement_with_clean": 1.0,
+          "mae_from_clean": 0.0,
+          "correlation_with_clean": 1.0
+        },
+        "50.0": {
+          "texture_fraction": 0.09498524539710701,
+          "agreement_with_clean": 0.8912631026304831,
+          "mae_from_clean": 0.13619475066661835,
+          "correlation_with_clean": 0.5107393138519047
+        },
+        "100.0": {
+          "texture_fraction": 0.25188370114235026,
+          "agreement_with_clean": 0.7330394481959556,
+          "mae_from_clean": 0.25903138518333435,
+          "correlation_with_clean": 0.11796474507640826
+        }
+      }
+    }
+  },
+  "gallery": "results\\stcnn_stride1\\teacher_candidates_piqsels.jpg"
+}

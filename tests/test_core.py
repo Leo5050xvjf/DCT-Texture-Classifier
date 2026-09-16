@@ -21,6 +21,7 @@ from build_context_dataset import extract_context
 from infer import add_awgn as add_dct_awgn
 from infer_map_generator import infer_tiled, tile_starts
 from infer_spatial32_dense import infer_blockwise
+from infer_stcnn_stride1 import infer_stride1
 
 
 class CoreTests(unittest.TestCase):
@@ -189,6 +190,21 @@ class CoreTests(unittest.TestCase):
         )
         expected = torch.sigmoid(torch.tensor(2.0)).item()
         np.testing.assert_allclose(probability, expected)
+
+    def test_stcnn_stride1_overlap_average_preserves_native_shape(self) -> None:
+        class MeanModel(torch.nn.Module):
+            def forward(self, context: torch.Tensor) -> torch.Tensor:
+                return context.mean(dim=(1, 2, 3))
+
+        gray = np.full((19, 25), 255, dtype=np.uint8)
+        probability, noisy = infer_stride1(
+            gray, MeanModel(), torch.device("cpu"), batch_size=16,
+            sigma=0.0, seed=1, context_size=16, target_size=8,
+        )
+        self.assertEqual(probability.shape, gray.shape)
+        self.assertEqual(noisy.shape, gray.shape)
+        expected = torch.sigmoid(torch.tensor(2.0)).item()
+        np.testing.assert_allclose(probability, expected, atol=1e-6)
 
 
 if __name__ == "__main__":

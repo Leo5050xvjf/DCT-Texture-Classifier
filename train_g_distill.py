@@ -33,6 +33,10 @@ def main() -> None:
     parser.add_argument("--alpha", type=float, default=0.5, help="Weight of clean-teacher target versus large-G distillation")
     parser.add_argument("--consistency-weight", type=float, default=0.25)
     parser.add_argument("--seed", type=int, default=20263015)
+    parser.add_argument(
+        "--target-description",
+        default="clean v1 DCT teacher stride-1 overlap-averaged soft map",
+    )
     args = parser.parse_args()
     args.output_dir.mkdir(parents=True, exist_ok=True)
     set_seed(args.seed)
@@ -119,7 +123,7 @@ def main() -> None:
                         "name": "g_diverse_distilled", "teacher": str(args.teacher),
                         "alpha": args.alpha, "noise_scheme": "diverse",
                     },
-                    "target": "clean v1 DCT teacher plus large diverse G soft outputs",
+                    "target": args.target_description + " plus large diverse G soft outputs",
                 },
                 args.output_dir / "best.pt",
             )
@@ -140,6 +144,7 @@ def main() -> None:
         "parameters": parameter_count(student), "teacher_parameters": parameter_count(teacher),
         "alpha": args.alpha, "best_epoch": best_epoch, "epochs_completed": len(history),
         "best_selection_mean_rmse": best_rmse, "elapsed_seconds": time.perf_counter() - started,
+        "target": args.target_description,
     }
     (args.output_dir / "training_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps(summary, indent=2))

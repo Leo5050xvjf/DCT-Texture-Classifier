@@ -1,0 +1,218 @@
+{
+  "checkpoint": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\checkpoints\\stcnn_limit\\stcnn_diverse_teacher.pt",
+  "kind": "spatial32_large",
+  "parameters": 633729,
+  "device": "cuda",
+  "model_label": "P-robust (diverse large, no sigma input)",
+  "model_receives_sigma": false,
+  "input_dir": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\Freq-Aware-Seg\\data\\external_grass_test",
+  "sigmas": [
+    0.0,
+    15.0,
+    50.0
+  ],
+  "resize": false,
+  "panel_order": [
+    "original",
+    "P map for AWGN sigma=0",
+    "P map for AWGN sigma=15",
+    "P map for AWGN sigma=50",
+    "overlay of clean sigma=0 result"
+  ],
+  "color_scale": "OpenCV TURBO: blue/purple=0, red=1",
+  "elapsed_seconds": 544.4448039999988,
+  "images": [
+    {
+      "image": "parking_lot.jpg",
+      "source": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\Freq-Aware-Seg\\data\\external_grass_test\\parking_lot.jpg",
+      "native_height": 1080,
+      "native_width": 1440,
+      "comparison_height": 1080,
+      "comparison_width": 7200,
+      "conditions": [
+        {
+          "sigma": 0.0,
+          "fraction_ge_050": 0.3293248456790123,
+          "probability_mean": 0.3595532774925232,
+          "elapsed_seconds": 6.652437600001576
+        },
+        {
+          "sigma": 15.0,
+          "fraction_ge_050": 0.32873971193415635,
+          "probability_mean": 0.35560572147369385,
+          "elapsed_seconds": 6.42421870000544
+        },
+        {
+          "sigma": 50.0,
+          "fraction_ge_050": 0.3199781378600823,
+          "probability_mean": 0.3546813130378723,
+          "elapsed_seconds": 6.31118730000162
+        }
+      ],
+      "overlay_source_sigma": 0.0,
+      "comparison": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\results\\stcnn_stride1\\external_grass_robust_p_suite\\parking_lot_comparison_native.jpg",
+      "output_dir": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\outputs\\stcnn_stride1\\external_grass_robust_p_suite\\parking_lot",
+      "elapsed_seconds": 19.525012300000526
+    },
+    {
+      "image": "pexels-leventsimsek-28080421.jpg",
+      "source": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\Freq-Aware-Seg\\data\\external_grass_test\\pexels-leventsimsek-28080421.jpg",
+      "native_height": 4000,
+      "native_width": 6000,
+      "comparison_height": 4000,
+      "comparison_width": 30000,
+      "conditions": [
+        {
+          "sigma": 0.0,
+          "fraction_ge_050": 0.390484375,
+          "probability_mean": 0.38539937138557434,
+          "elapsed_seconds": 95.9198325000034
+        },
+        {
+          "sigma": 15.0,
+          "fraction_ge_050": 0.3869115416666667,
+          "probability_mean": 0.3812831938266754,
+          "elapsed_seconds": 97.34166520000144
+        },
+        {
+          "sigma": 50.0,
+          "fraction_ge_050": 0.3834115,
+          "probability_mean": 0.38841286301612854,
+          "elapsed_seconds": 97.34666330000618
+        }
+      ],
+      "overlay_source_sigma": 0.0,
+      "comparison": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\results\\stcnn_stride1\\external_grass_robust_p_suite\\pexels-leventsimsek-28080421_comparison_native.jpg",
+      "output_dir": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\outputs\\stcnn_stride1\\external_grass_robust_p_suite\\pexels-leventsimsek-28080421",
+      "elapsed_seconds": 292.34573380000074
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "source": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\Freq-Aware-Seg\\data\\external_grass_test\\pexels_golf_ball_grass_sky.jpg",
+      "native_height": 1688,
+      "native_width": 3000,
+      "comparison_height": 1688,
+      "comparison_width": 15000,
+      "conditions": [
+        {
+          "sigma": 0.0,
+          "fraction_ge_050": 0.2999913112164297,
+          "probability_mean": 0.30097320675849915,
+          "elapsed_seconds": 20.36513589999231
+        },
+        {
+          "sigma": 15.0,
+          "fraction_ge_050": 0.3026330963665087,
+          "probability_mean": 0.3062724173069,
+          "elapsed_seconds": 20.08955180000339
+        },
+        {
+          "sigma": 50.0,
+          "fraction_ge_050": 0.3198404423380727,
+          "probability_mean": 0.3405008316040039,
+          "elapsed_seconds": 20.78788620000705
+        }
+      ],
+      "overlay_source_sigma": 0.0,
+      "comparison": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\results\\stcnn_stride1\\external_grass_robust_p_suite\\pexels_golf_ball_grass_sky_comparison_native.jpg",
+      "output_dir": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\outputs\\stcnn_stride1\\external_grass_robust_p_suite\\pexels_golf_ball_grass_sky",
+      "elapsed_seconds": 61.67262080000364
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "source": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\Freq-Aware-Seg\\data\\external_grass_test\\piqsels_grass.jpg",
+      "native_height": 607,
+      "native_width": 910,
+      "comparison_height": 607,
+      "comparison_width": 4550,
+      "conditions": [
+        {
+          "sigma": 0.0,
+          "fraction_ge_050": 0.040480112967757116,
+          "probability_mean": 0.1387338489294052,
+          "elapsed_seconds": 2.239168800006155
+        },
+        {
+          "sigma": 15.0,
+          "fraction_ge_050": 0.050230823542190925,
+          "probability_mean": 0.1521412432193756,
+          "elapsed_seconds": 2.2451327000017045
+        },
+        {
+          "sigma": 50.0,
+          "fraction_ge_050": 0.11680938501366837,
+          "probability_mean": 0.2419086992740631,
+          "elapsed_seconds": 2.2356373999937205
+        }
+      ],
+      "overlay_source_sigma": 0.0,
+      "comparison": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\results\\stcnn_stride1\\external_grass_robust_p_suite\\piqsels_grass_comparison_native.jpg",
+      "output_dir": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\outputs\\stcnn_stride1\\external_grass_robust_p_suite\\piqsels_grass",
+      "elapsed_seconds": 6.786529899996822
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "source": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\Freq-Aware-Seg\\data\\external_grass_test\\unsplash_grass_3000.jpg",
+      "native_height": 2000,
+      "native_width": 3000,
+      "comparison_height": 2000,
+      "comparison_width": 15000,
+      "conditions": [
+        {
+          "sigma": 0.0,
+          "fraction_ge_050": 0.497025,
+          "probability_mean": 0.5106920599937439,
+          "elapsed_seconds": 24.64308439999877
+        },
+        {
+          "sigma": 15.0,
+          "fraction_ge_050": 0.46915266666666666,
+          "probability_mean": 0.4829987585544586,
+          "elapsed_seconds": 24.62018060000264
+        },
+        {
+          "sigma": 50.0,
+          "fraction_ge_050": 0.4492275,
+          "probability_mean": 0.48412367701530457,
+          "elapsed_seconds": 24.634158800006844
+        }
+      ],
+      "overlay_source_sigma": 0.0,
+      "comparison": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\results\\stcnn_stride1\\external_grass_robust_p_suite\\unsplash_grass_3000_comparison_native.jpg",
+      "output_dir": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\outputs\\stcnn_stride1\\external_grass_robust_p_suite\\unsplash_grass_3000",
+      "elapsed_seconds": 74.46145659999456
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "source": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\Freq-Aware-Seg\\data\\external_grass_test\\wikimedia_golf_course.jpg",
+      "native_height": 2214,
+      "native_width": 3269,
+      "comparison_height": 2214,
+      "comparison_width": 16345,
+      "conditions": [
+        {
+          "sigma": 0.0,
+          "fraction_ge_050": 0.28934147198105,
+          "probability_mean": 0.2950096130371094,
+          "elapsed_seconds": 29.81350360000215
+        },
+        {
+          "sigma": 15.0,
+          "fraction_ge_050": 0.2740491762009493,
+          "probability_mean": 0.2826826274394989,
+          "elapsed_seconds": 29.567688300012378
+        },
+        {
+          "sigma": 50.0,
+          "fraction_ge_050": 0.27581261435128884,
+          "probability_mean": 0.301478773355484,
+          "elapsed_seconds": 29.685685099990224
+        }
+      ],
+      "overlay_source_sigma": 0.0,
+      "comparison": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\results\\stcnn_stride1\\external_grass_robust_p_suite\\wikimedia_golf_course_comparison_native.jpg",
+      "output_dir": "C:\\Users\\LeoTsai\\AI_Project\\SigmaStar\\DCT-Texture-Classifier\\outputs\\stcnn_stride1\\external_grass_robust_p_suite\\wikimedia_golf_course",
+      "elapsed_seconds": 89.65288559999317
+    }
+  ]
+}

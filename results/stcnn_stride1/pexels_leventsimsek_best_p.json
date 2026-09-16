@@ -1,0 +1,23 @@
+{
+  "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_conditioned_oracle.pt",
+  "kind": "spatial32_conditional",
+  "input": "..\\Freq-Aware-Seg\\data\\external_grass_test\\pexels-leventsimsek-28080421.jpg",
+  "input_dir": null,
+  "method": "stride-1 32x32 contexts; scalar central-8x8 predictions overlap-averaged",
+  "resize": false,
+  "sigmas": [
+    0.0
+  ],
+  "seed": 20260916,
+  "device": "cuda",
+  "elapsed_seconds": 45.582759400000214,
+  "records": [
+    {
+      "image": "pexels-leventsimsek-28080421.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.4300755,
+      "elapsed_seconds": 45.37675469999522
+    }
+  ],
+  "gallery": "results\\stcnn_stride1\\pexels_leventsimsek_best_p.jpg"
+}

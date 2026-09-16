@@ -1,0 +1,10 @@
+{
+  "parameters": 761665,
+  "teacher_parameters": 3043969,
+  "alpha": 0.5,
+  "best_epoch": 48,
+  "epochs_completed": 50,
+  "best_selection_mean_rmse": 0.2078774186695145,
+  "elapsed_seconds": 133.69458539999323,
+  "target": "clean conditional-STCNN sigma=0 teacher; stride-1 overlap-averaged soft map"
+}

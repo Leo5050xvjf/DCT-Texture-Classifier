@@ -1,0 +1,193 @@
+{
+  "protocol": {
+    "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_distilled.pt",
+    "kind": "spatial32",
+    "parameters": 39777,
+    "validation_crops": 200,
+    "crop_size": 128,
+    "sigmas": [
+      0.0,
+      15.0,
+      50.0,
+      100.0
+    ],
+    "noise": "independent AWGN in 8-bit intensity units",
+    "stride1": "all valid central 8x8 target origins; overlapping scalar probabilities averaged",
+    "stride8": "non-overlapping central 8x8 targets; scalar probability repeated over each block",
+    "old_dct_comparison": "descriptive only; old DCT map is not ground truth",
+    "device": "cuda",
+    "seed": 20260916,
+    "elapsed_seconds": 23.489129399997182
+  },
+  "conditions": [
+    {
+      "method": "stride8_blockwise",
+      "sigma": 0.0,
+      "reference": "old_clean_DCT_teacher_descriptive_only",
+      "elapsed_seconds": 0.35284739997587167,
+      "binary_agreement": 0.7484075927734375,
+      "mae": 0.23974893987178802,
+      "rmse": 0.370980829000473,
+      "correlation": 0.6495230499457464,
+      "reference_texture_fraction": 0.587637939453125,
+      "prediction_texture_fraction": 0.4386328125
+    },
+    {
+      "method": "stride8_blockwise",
+      "sigma": 15.0,
+      "reference": "same_method_clean_output",
+      "elapsed_seconds": 0.24431840001489036,
+      "binary_agreement": 0.98294921875,
+      "mae": 0.0188173558562994,
+      "rmse": 0.040929559618234634,
+      "correlation": 0.9955381807714347,
+      "reference_texture_fraction": 0.4386328125,
+      "prediction_texture_fraction": 0.43111328125
+    },
+    {
+      "method": "stride8_blockwise",
+      "sigma": 50.0,
+      "reference": "same_method_clean_output",
+      "elapsed_seconds": 0.2179918000183534,
+      "binary_agreement": 0.94990234375,
+      "mae": 0.055752016603946686,
+      "rmse": 0.10977791994810104,
+      "correlation": 0.9673132776591024,
+      "reference_texture_fraction": 0.4386328125,
+      "prediction_texture_fraction": 0.43634765625
+    },
+    {
+      "method": "stride8_blockwise",
+      "sigma": 100.0,
+      "reference": "same_method_clean_output",
+      "elapsed_seconds": 0.22678719999385066,
+      "binary_agreement": 0.86375,
+      "mae": 0.14032034575939178,
+      "rmse": 0.2358836531639099,
+      "correlation": 0.8509353195669713,
+      "reference_texture_fraction": 0.4386328125,
+      "prediction_texture_fraction": 0.489609375
+    },
+    {
+      "method": "stride1_overlap",
+      "sigma": 0.0,
+      "reference": "old_clean_DCT_teacher_descriptive_only",
+      "elapsed_seconds": 4.9126056999957655,
+      "binary_agreement": 0.7514605712890625,
+      "mae": 0.2354055941104889,
+      "rmse": 0.36328157782554626,
+      "correlation": 0.6592871801181807,
+      "reference_texture_fraction": 0.587637939453125,
+      "prediction_texture_fraction": 0.4414459228515625
+    },
+    {
+      "method": "stride1_overlap",
+      "sigma": 15.0,
+      "reference": "same_method_clean_output",
+      "elapsed_seconds": 4.898729700013064,
+      "binary_agreement": 0.9833816528320313,
+      "mae": 0.017135055735707283,
+      "rmse": 0.036014825105667114,
+      "correlation": 0.9964515226845793,
+      "reference_texture_fraction": 0.4414459228515625,
+      "prediction_texture_fraction": 0.4334017944335937
+    },
+    {
+      "method": "stride1_overlap",
+      "sigma": 50.0,
+      "reference": "same_method_clean_output",
+      "elapsed_seconds": 4.92657309997594,
+      "binary_agreement": 0.9561322021484375,
+      "mae": 0.04881303757429123,
+      "rmse": 0.09147068858146667,
+      "correlation": 0.9763805742106801,
+      "reference_texture_fraction": 0.4414459228515625,
+      "prediction_texture_fraction": 0.4380804443359375
+    },
+    {
+      "method": "stride1_overlap",
+      "sigma": 100.0,
+      "reference": "same_method_clean_output",
+      "elapsed_seconds": 4.938693600008264,
+      "binary_agreement": 0.8858737182617188,
+      "mae": 0.12656165659427643,
+      "rmse": 0.20207619667053223,
+      "correlation": 0.8887454186219382,
+      "reference_texture_fraction": 0.4414459228515625,
+      "prediction_texture_fraction": 0.48538177490234374
+    }
+  ],
+  "clean_stride8_vs_stride1": {
+    "binary_agreement": 0.9673455810546875,
+    "mae": 0.033451471477746964,
+    "rmse": 0.07764054089784622,
+    "correlation": 0.9832375950737595,
+    "reference_texture_fraction": 0.4386328125,
+    "prediction_texture_fraction": 0.4414459228515625
+  },
+  "blockiness": {
+    "stride8_blockwise": {
+      "grid_seam_gradient_mean": 0.07411859184503555,
+      "non_grid_gradient_mean": 0.0,
+      "grid_to_non_grid_gradient_ratio": 74118591845.03555,
+      "exactly_flat_neighbor_fraction": 0.8828863188976378
+    },
+    "stride1_overlap": {
+      "grid_seam_gradient_mean": 0.009054739028215408,
+      "non_grid_gradient_mean": 0.008571802638471127,
+      "grid_to_non_grid_gradient_ratio": 1.0563401200555895,
+      "exactly_flat_neighbor_fraction": 0.008497939222440945
+    }
+  },
+  "translation_equivariance": {
+    "stride8_blockwise": {
+      "dy1_dx1": {
+        "mae": 0.026498493183680694,
+        "binary_agreement": 0.9747187500000001,
+        "correlation": 0.9146937536921982,
+        "interior_margin": 24
+      },
+      "dy3_dx5": {
+        "mae": 0.05114708869950846,
+        "binary_agreement": 0.9464296875,
+        "correlation": 0.8206982151342185,
+        "interior_margin": 24
+      },
+      "dy7_dx7": {
+        "mae": 0.02702377723981044,
+        "binary_agreement": 0.9736484375,
+        "correlation": 0.9193619548165352,
+        "interior_margin": 24
+      }
+    },
+    "stride1_overlap": {
+      "dy1_dx1": {
+        "mae": 3.754098558926555e-10,
+        "binary_agreement": 1.0,
+        "correlation": 0.9999999999999909,
+        "interior_margin": 24
+      },
+      "dy3_dx5": {
+        "mae": 8.706833764388078e-10,
+        "binary_agreement": 1.0,
+        "correlation": 0.9999999999999692,
+        "interior_margin": 24
+      },
+      "dy7_dx7": {
+        "mae": 1.5385519160027172e-05,
+        "binary_agreement": 0.999984375,
+        "correlation": 0.999998018009108,
+        "interior_margin": 24
+      }
+    }
+  },
+  "gallery_indices": [
+    9,
+    15,
+    93,
+    151,
+    158,
+    183
+  ],
+  "gallery": "results\\stcnn_stride1\\validation_comparison.jpg"
+}

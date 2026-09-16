@@ -1,0 +1,23 @@
+{
+  "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_conditioned_oracle.pt",
+  "kind": "spatial32_conditional",
+  "input": "..\\Freq-Aware-Seg\\data\\external_grass_test\\parking_lot.jpg",
+  "input_dir": null,
+  "method": "stride-1 32x32 contexts; scalar central-8x8 predictions overlap-averaged",
+  "resize": false,
+  "sigmas": [
+    0.0
+  ],
+  "seed": 20260916,
+  "device": "cuda",
+  "elapsed_seconds": 3.2875683000020217,
+  "records": [
+    {
+      "image": "parking_lot.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.6117296810699588,
+      "elapsed_seconds": 3.2454195999962394
+    }
+  ],
+  "gallery": "results\\stcnn_stride1\\parking_lot_best_p.jpg"
+}

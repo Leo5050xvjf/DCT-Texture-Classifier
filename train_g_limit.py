@@ -100,6 +100,7 @@ def train_one(
     learning_rate: float,
     consistency_weight: float,
     seed: int,
+    target_description: str,
 ) -> dict:
     set_seed(seed)
     model = make_map_generator(experiment.kind, experiment.base_channels).to(device)
@@ -195,7 +196,7 @@ def train_one(
                     "experiment": asdict(experiment),
                     "input_range": "luminance [0,1]",
                     "sigma_normalization": "sigma / 100" if experiment.kind == "unet_conditional" else None,
-                    "target": "clean v1 DCT teacher stride-1 overlap-averaged soft map",
+                    "target": target_description,
                 },
                 output_dir / "best.pt",
             )
@@ -236,6 +237,10 @@ def main() -> None:
     parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--consistency-weight", type=float, default=0.25)
     parser.add_argument("--seed", type=int, default=20260915)
+    parser.add_argument(
+        "--target-description",
+        default="clean v1 DCT teacher stride-1 overlap-averaged soft map",
+    )
     parser.add_argument("--models", nargs="*", default=[item.name for item in EXPERIMENTS])
     args = parser.parse_args()
     selected = [item for item in EXPERIMENTS if item.name in args.models]
@@ -257,6 +262,7 @@ def main() -> None:
                 experiment, train_clean, train_target, val_clean, val_target,
                 args.output_dir, device, args.epochs, args.patience, args.batch_size,
                 args.lr, args.consistency_weight, args.seed,
+                args.target_description,
             )
         )
     payload = {
@@ -267,6 +273,7 @@ def main() -> None:
             "paired_clean_noisy_supervision": True,
             "consistency_weight": args.consistency_weight,
             "device": str(device),
+            "target": args.target_description,
         },
         "models": summaries,
     }

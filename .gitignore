@@ -7,5 +7,6 @@ venv/
 .vscode/
 data/
 outputs/
+logs/
 *.npz
 *.npy

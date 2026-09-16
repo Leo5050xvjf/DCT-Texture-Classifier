@@ -1,0 +1,43 @@
+{
+  "protocol": {
+    "train_crops": 1600,
+    "validation_crops": 200,
+    "crop_size": 128,
+    "paired_clean_noisy_supervision": true,
+    "consistency_weight": 0.25,
+    "device": "cuda",
+    "target": "clean conditional-STCNN sigma=0 teacher; stride-1 overlap-averaged soft map"
+  },
+  "models": [
+    {
+      "experiment": {
+        "name": "g_diverse_conditional_oracle",
+        "kind": "unet_conditional",
+        "base_channels": 16,
+        "noise_scheme": "diverse",
+        "sigma_jitter": 0.0,
+        "sigma_randomization_probability": 0.0
+      },
+      "parameters": 761825,
+      "best_epoch": 50,
+      "epochs_completed": 50,
+      "best_selection_mean_rmse": 0.2113590499659956,
+      "elapsed_seconds": 111.38091990000248
+    },
+    {
+      "experiment": {
+        "name": "g_diverse_conditional_robust",
+        "kind": "unet_conditional",
+        "base_channels": 16,
+        "noise_scheme": "diverse",
+        "sigma_jitter": 10.0,
+        "sigma_randomization_probability": 0.1
+      },
+      "parameters": 761825,
+      "best_epoch": 47,
+      "epochs_completed": 50,
+      "best_selection_mean_rmse": 0.21139488414708435,
+      "elapsed_seconds": 110.49498930000118
+    }
+  ]
+}

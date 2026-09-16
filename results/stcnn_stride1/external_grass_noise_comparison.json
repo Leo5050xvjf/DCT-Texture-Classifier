@@ -1,0 +1,65 @@
+{
+  "checkpoint": "checkpoints\\stcnn_limit\\stcnn_diverse_distilled.pt",
+  "kind": "spatial32",
+  "input_dir": "..\\Freq-Aware-Seg\\data\\external_grass_test",
+  "method": "stride-1 32x32 contexts; scalar central-8x8 predictions overlap-averaged",
+  "resize": false,
+  "sigmas": [
+    0.0,
+    50.0
+  ],
+  "seed": 20260916,
+  "device": "cuda",
+  "elapsed_seconds": 66.17558999999892,
+  "records": [
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.3475120458135861,
+      "elapsed_seconds": 8.864828599995235
+    },
+    {
+      "image": "pexels_golf_ball_grass_sky.jpg",
+      "sigma": 50.0,
+      "fraction_ge_050": 0.3546050552922591,
+      "elapsed_seconds": 8.694273900007829
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.011649799952930102,
+      "elapsed_seconds": 0.9429104999871925
+    },
+    {
+      "image": "piqsels_grass.jpg",
+      "sigma": 50.0,
+      "fraction_ge_050": 0.049410721074642,
+      "elapsed_seconds": 0.9513896999997087
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.4399525,
+      "elapsed_seconds": 10.599202399986098
+    },
+    {
+      "image": "unsplash_grass_3000.jpg",
+      "sigma": 50.0,
+      "fraction_ge_050": 0.42792783333333334,
+      "elapsed_seconds": 10.71472420002101
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 0.0,
+      "fraction_ge_050": 0.2779976030615818,
+      "elapsed_seconds": 12.310877999989316
+    },
+    {
+      "image": "wikimedia_golf_course.jpg",
+      "sigma": 50.0,
+      "fraction_ge_050": 0.258174087807973,
+      "elapsed_seconds": 12.779432700015604
+    }
+  ],
+  "gallery": "results\\stcnn_stride1\\external_grass_noise_comparison.jpg"
+}
