@@ -4,6 +4,12 @@ An independent research reproduction and extension of the texture-map front end 
 
 This repository studies a narrow question: can a model identify image detail that should be preserved during denoising, without confusing additive noise for texture?
 
+> **Current hand-off:** read [EXPERIMENT_STATE.md](EXPERIMENT_STATE.md) for the
+> exact datasets, pseudo-label construction, noise ranges, model architectures,
+> parameter counts, checkpoint roles, current results, limitations, and next
+> experiments. The current main line is spatial patch model `P` -> dense
+> generator `G`; DCT is retained as a historical baseline.
+
 It includes:
 
 - A paper-style `8x8` DCT texture/non-texture classifier.
@@ -65,6 +71,7 @@ The controlled diagnostics also expose important failures: `G` misses a syntheti
 
 See:
 
+- [Canonical current experiment state and hand-off](EXPERIMENT_STATE.md)
 - [Paper-style v1 report](EXPERIMENT_REPORT.md)
 - [Robust v2 report](EXPERIMENT_V2_REPORT.md)
 - [STCNN noise-limit study](STCNN_LIMIT_REPORT.md)
@@ -265,6 +272,7 @@ results/robust_v2/           Robustness metrics and selected figures
 results/g_limit/             Dense G limit-study metrics and figures
 results/stcnn_stride1/       Stride-1 P comparisons and external-image suites
 results/g_stcnn_teacher/     G results using clean stride-1 STCNN targets
+EXPERIMENT_STATE.md          Canonical current state and new-session hand-off
 EXPERIMENT_REPORT.md         Detailed clean DCT experiment
 EXPERIMENT_V2_REPORT.md      Detailed robust-model experiment
 G_LIMIT_REPORT.md            Dense G capacity/noise-limit experiment
